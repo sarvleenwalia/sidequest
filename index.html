@@ -1,8 +1,251 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidequest — Find your next project</title><meta name="description" content="Research-inspired projects across science, computing, and the humanities."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c8fa73'/%3E%3Cpath d='M8 8v11q0 7 8 7t8-7V8h-5v11q0 3-3 3t-3-3V8z' fill='%23121814'/%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"></head>
-<body><header><a class="brand" href="#">sidequest<span>✳</span></a><nav><button id="explore-nav" class="nav active">Project studio</button><button id="research-nav" class="nav">The research</button></nav><span class="edition">VOL. 001 / A PLACE TO BEGIN</span></header>
-<main id="studio"><div class="intro"><div><p class="eyebrow">FOLLOW YOUR CURIOSITY</p><h1>Make something<br><em>worth getting lost in.</em></h1></div><p class="intro-copy">Start with what interests you.<br>Find a question worth asking.<br>Leave with a project worth making.</p></div>
-<div class="workspace"><aside><div class="section-label"><span>01</span> Your starting point</div><form id="generator"><label for="field">Pick a field</label><select id="field"><option value="ai">AI & language</option><option value="systems">Computer science</option><option value="humanities">History & literature</option><option value="economics">Economics & society</option><option value="science">Space & mathematics</option><option value="design">Design & storytelling</option></select><label for="project-search">Search all projects</label><input id="project-search" placeholder="e.g. rhythm, climate, privacy"><label for="project-choice">Choose a project</label><select id="project-choice"></select><p id="catalog-count" class="hint"></p><label for="interest">What pulls you in?</label><input id="interest" maxlength="100" placeholder="e.g. music, cricket, Indian languages"><p class="hint">Optional. We’ll connect it to the question.</p><label for="level">Your experience</label><select id="level"><option value="beginner">Curious beginner</option><option value="intermediate" selected>Some projects behind me</option><option value="advanced">Ready for a deeper challenge</option></select><label for="time">Time you can give it</label><select id="time"><option value="2">2 weeks · a focused experiment</option><option value="4" selected>4 weeks · a substantial project</option><option value="8">8 weeks · room to go deeper</option></select><button type="submit" class="primary">Find my project <span>✳</span></button><p class="hint mode">Ideas adapted from a researched collection.<br>See the real work behind each idea.</p></form><div class="aside-note"><span>GOOD WORK STARTS SMALL.</span><p>A specific question.<br>A real artifact.<br>Evidence you can explain.</p></div></aside>
-<section class="results"><div class="results-top"><div class="section-label"><span>02</span> Your next rabbit hole</div><button id="another" class="text-button">Try another idea ↻</button></div><article id="project" aria-live="polite"></article></section></div></main>
-<main id="research" hidden><p class="eyebrow">THE IDEA BEHIND THE IDEAS</p><h1>Borrow the rigor.<br><em>Find your own question.</em></h1><p class="research-intro">A starting library of student projects and research methods. We adapt their structures into software and digital research briefs; we do not promise original discoveries or MIT endorsement.</p><div id="source-list"></div></main>
-<footer><span>sidequest ✳</span><span>Software & digital research only. Curiosity across disciplines.</span></footer><script src="catalog.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sidequest: projects worth putting in your portfolio</title>
+<meta name="description" content="Pick a field, get a specific question, a thing to build, and evidence you can defend. Built for makers and applicants.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#f3f4ff;--ink:#0d0f2b;--mute:#565a82;--card:#fff;--line:#d5d8f3;--acc:#2b3cff;--pop:#ff5c35;--hi:#d7ff3f}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b0c1f;--ink:#f1f2ff;--mute:#9a9ec9;--card:#14163a;--line:#2a2d63;--acc:#8a95ff;--pop:#ff7a58;--hi:#d7ff3f}}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "DM Mono",ui-monospace,monospace}
+h1,h2,h3,.d{font-family:"Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.02em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+nav b{font:800 20px "Bricolage Grotesque",sans-serif}nav b i{color:var(--pop);font-style:normal}
+nav a{color:var(--ink);font-size:14px;margin-left:18px;text-decoration:none}nav a:hover{color:var(--acc)}
+.hero{padding:72px 0 40px}
+.tag{display:inline-block;background:var(--hi);color:#0d0f2b;font-size:13px;font-weight:500;padding:4px 10px;border-radius:99px;transform:rotate(-2deg)}
+h1{font-size:clamp(44px,8.5vw,96px);line-height:.95;margin:18px 0;font-weight:800}
+h1 em{font-style:normal;color:var(--acc);background:linear-gradient(transparent 62%,var(--hi) 62%)}
+.lead{max-width:600px;color:var(--mute);font-size:18px}
+.cta{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);padding:14px 22px;border-radius:12px;text-decoration:none;font-weight:500;border:0;font-family:inherit;font-size:16px;cursor:pointer}
+.cta:hover{background:var(--acc);color:#fff}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:34px 0}
+.three div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.three b{font:800 22px "Bricolage Grotesque",sans-serif;display:block;margin-bottom:4px}
+.three span{color:var(--mute);font-size:15px}
+section{padding:46px 0}
+h2{font-size:clamp(30px,5vw,48px);margin:0 0 6px;font-weight:800}
+.kick{color:var(--pop);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.gen{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:18px}
+.lab{display:block;font-size:13px;color:var(--mute);margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:15px;padding:9px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.chip:hover{border-color:var(--acc)}
+input[type=text]{width:100%;font:inherit;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.res{margin-top:26px;border:2px solid var(--ink);border-radius:20px;padding:24px;background:var(--card);box-shadow:8px 8px 0 var(--pop)}
+.res h3{font-size:clamp(26px,4vw,38px);margin:6px 0 8px;line-height:1.05}
+.res .hook{font-size:18px}
+dl{display:grid;grid-template-columns:130px 1fr;gap:10px 16px;margin:18px 0}
+dt{color:var(--mute);font-size:13px;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}
+dd{margin:0}
+.line{background:var(--hi);color:#0d0f2b;padding:12px 14px;border-radius:10px;font-weight:500}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.ghost{background:none;color:var(--ink);border:1.5px solid var(--ink);margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:16px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.mini:hover{border-color:var(--acc)}
+.mini small{color:var(--pop);font-size:12px}
+.mini b{display:block;font:700 18px "Bricolage Grotesque",sans-serif;margin:2px 0}
+.mini span{font-size:14px;color:var(--mute)}
+.stand{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.stand div{border-top:3px solid var(--acc);padding-top:10px}
+.stand b{font:800 20px "Bricolage Grotesque",sans-serif}
+svg.art{display:block;width:100%;height:auto}
+.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:34px 0 8px}
+.tile{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--card);cursor:pointer;padding:0;font:inherit;color:var(--ink);text-align:left;transition:transform .15s}
+.tile:nth-child(odd){transform:rotate(-1.2deg)}.tile:nth-child(even){transform:rotate(1deg)}
+.tile:hover{transform:rotate(0) translateY(-4px)}
+.tile b{display:block;padding:8px 10px;font:700 15px "Bricolage Grotesque",sans-serif}
+.banner{border-radius:14px;overflow:hidden;margin:-4px 0 14px;border:2px solid var(--ink)}
+.mini .art{border-radius:8px;margin-bottom:10px}
+.pulse{animation:pl 6s ease-in-out infinite;transform-origin:center}
+@keyframes pl{50%{opacity:.55}}
+select,textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{min-height:100px;resize:vertical}
+.sug{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:16px}
+@media(max-width:760px){.sug{grid-template-columns:1fr}}
+.board .it{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--card)}
+.board .it small{color:var(--pop)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mute);font-size:14px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+@media(max-width:600px){dl{grid-template-columns:1fr;gap:2px}dt{margin-top:10px}nav a{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>sidequest<i>✳</i></b><span><a href="#make">get a project</a><a href="#all">all ideas</a><a href="#bar">the bar</a><a href="#suggest">suggest</a></span></div></nav>
+<main class="wrap">
+<div class="hero">
+  <span class="tag">no more "i want to build something" energy</span>
+  <h1>Side quests that <em>actually ship.</em></h1>
+  <p class="lead">Tell us what you're into. Get one sharp question, one thing to build, and the evidence that proves it worked. Made for people who need receipts: portfolios, applications, maker fairs.</p>
+  <button class="cta" onclick="document.getElementById('make').scrollIntoView()">Get my project ↓</button>
+  <div class="wall" id="wall" aria-label="Pick a discipline"></div>
+  <div class="three">
+    <div><b>1. A real question</b><span>Not "explore AI." Something with an answer you can be wrong about.</span></div>
+    <div><b>2. A real artifact</b><span>Code, a dataset, a tool, a design. Something someone can open.</span></div>
+    <div><b>3. Real evidence</b><span>Numbers, tests, user feedback. A reviewer can poke at it and it holds.</span></div>
+  </div>
+</div>
+
+<section id="make">
+  <div class="kick">step 01</div><h2>What's your thing?</h2>
+  <div class="gen">
+    <span class="lab" style="margin-top:0">pick a lane</span>
+    <div class="chips" id="fields"></div>
+    <label class="lab" for="int">what are you into rn? (optional: music, football, anime, climate, your city…)</label>
+    <input type="text" id="int" maxlength="60" placeholder="type anything. we'll point the project at it">
+    <span class="lab">your level</span>
+    <div class="chips" id="lvl"></div>
+    <span class="lab">time you actually have</span>
+    <div class="chips" id="tm"></div>
+    <div class="row"><button class="cta" id="go">Find my project ✳</button></div>
+  </div>
+  <div id="out" aria-live="polite"></div>
+</section>
+
+<section id="all">
+  <div class="kick">the whole bank</div><h2>Or just browse.</h2>
+  <input type="text" id="q" placeholder="search: slang, transit, space, UX…" aria-label="Search all projects" style="margin-top:14px">
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="suggest">
+  <div class="kick">your turn</div><h2>Got a quest we're missing?</h2>
+  <p class="lead">Drop an idea. Best ones get built into the bank, with credit to you.</p>
+  <div class="sug">
+    <div class="gen" style="margin-top:0">
+      <label class="lab" for="sField" style="margin-top:0">which lane</label><select id="sField"></select>
+      <label class="lab" for="sTitle">idea title</label><input type="text" id="sTitle" maxlength="80" placeholder="e.g. Do subway delays predict exam scores?">
+      <label class="lab" for="sBody">the question + what you'd build</label><textarea id="sBody" maxlength="500" placeholder="One question. One thing to build. How you'd prove it worked."></textarea>
+      <label class="lab" for="sName">your name or handle (optional)</label><input type="text" id="sName" maxlength="40">
+      <div class="row"><button class="cta" id="sPost" hidden>Post to the board</button><a class="cta ghost" id="sGh" target="_blank" rel="noopener" style="text-decoration:none">Send via GitHub</a></div>
+      <div class="lab" id="sMsg" role="status"></div>
+    </div>
+    <div class="board"><div class="lab" style="margin-top:0">community board</div><div id="board"><div style="color:var(--mute)">The live board shows up where Sidequest is hosted with sharing on. Everywhere else, use "Send via GitHub".</div></div></div>
+  </div>
+</section>
+
+<section id="bar">
+  <div class="kick">what "portfolio-grade" means</div><h2>The bar every quest has to clear.</h2>
+  <div class="stand">
+    <div><b>Falsifiable</b><p>You can say what result would prove you wrong.</p></div>
+    <div><b>Reproducible</b><p>README, data, and steps. A stranger can rerun it in an hour.</p></div>
+    <div><b>Honest</b><p>A limits section. Reviewers trust projects that name their own flaws.</p></div>
+    <div><b>Yours</b><p>A personal angle, a decision you made, something you'd defend in an interview.</p></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">sidequest✳ · software and digital research only · ideas are starting points, not guarantees. Always check a dataset's license and a site's terms before using it.</div></footer>
+<div id="toast" role="status"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const F=["AI & language","Computer science","History & lit","Econ & society","Space & math","Design & story","Biology & health","Climate & earth","Sound & games"];
+const COL=[["#2b3cff","#d7ff3f"],["#0d0f2b","#ff5c35"],["#ff5c35","#0d0f2b"],["#d7ff3f","#2b3cff"],["#7b2dff","#ffd23f"],["#ff8fd8","#0d0f2b"],["#12b886","#0d0f2b"],["#ffd23f","#2b3cff"],["#1c1c28","#d7ff3f"]];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function art(f,seed){const R=rng(seed*97+f*13+5),[bg,fg]=COL[f];let g='';
+  if(f==0)for(let i=0;i<7;i++){let d='M0 '+(20+i*14);for(let x=0;x<=200;x+=10)d+=' L'+x+' '+(20+i*14+Math.sin(x/18+i+R()*2)*9).toFixed(1);g+=`<path d="${d}" stroke="${fg}" stroke-width="3" fill="none" opacity="${.35+R()*.65}"/>`}
+  else if(f==1)for(let y=0;y<6;y++)for(let x=0;x<10;x++)if(R()>.45)g+=`<rect x="${x*20+3}" y="${y*20+3}" width="14" height="14" rx="3" fill="${fg}" opacity="${.4+R()*.6}"/>`;
+  else if(f==2){for(let i=0;i<7;i++)g+=`<rect x="14" y="${14+i*15}" width="${60+R()*100}" height="6" rx="3" fill="${fg}" opacity=".8"/>`;g+=`<circle cx="164" cy="86" r="22" fill="none" stroke="${fg}" stroke-width="4" stroke-dasharray="6 4"/>`}
+  else if(f==3){for(let i=0;i<9;i++){const h=20+R()*80;g+=`<rect x="${12+i*20}" y="${120-h}" width="14" height="${h}" fill="${fg}" opacity=".85"/>`}g+=`<path d="M12 90 L60 60 L100 75 L150 30 L190 20" stroke="${fg}" stroke-width="3" fill="none"/>`}
+  else if(f==4){for(let i=1;i<5;i++)g+=`<ellipse cx="100" cy="60" rx="${i*24}" ry="${i*12}" fill="none" stroke="${fg}" stroke-width="2" transform="rotate(${-20+i*8} 100 60)" opacity=".6"/>`;for(let i=0;i<6;i++)g+=`<circle cx="${R()*200}" cy="${R()*120}" r="${1+R()*3}" fill="${fg}"/>`;g+=`<circle cx="100" cy="60" r="12" fill="${fg}"/>`}
+  else if(f==5){for(let i=0;i<5;i++)g+=i%2?`<rect x="${R()*140}" y="${R()*70}" width="${40+R()*40}" height="${30+R()*40}" rx="10" fill="${fg}" opacity=".75"/>`:`<circle cx="${30+R()*140}" cy="${20+R()*80}" r="${14+R()*26}" fill="${fg}" opacity=".75"/>`}
+  else if(f==6){for(let x=0;x<=200;x+=5){const y1=60+Math.sin(x/16+seed)*34,y2=60-Math.sin(x/16+seed)*34;if(x%15==0)g+=`<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="${fg}" stroke-width="2" opacity=".6"/>`;g+=`<circle cx="${x}" cy="${y1}" r="3" fill="${fg}"/><circle cx="${x}" cy="${y2}" r="3" fill="${fg}" opacity=".6"/>`}}
+  else if(f==7){const c=["#2b6cff","#6aa6ff","#bcd8ff","#ffd6b0","#ff9a62","#ff5c35","#b3261e"];for(let i=0;i<20;i++){const k=Math.min(6,Math.floor(i/20*7+(R()-.5)*1.6));g+=`<rect x="${i*10}" width="10" height="120" fill="${c[Math.max(0,k)]}"/>`}}
+  else for(let i=0;i<24;i++){const h=10+Math.abs(Math.sin(i/3+seed))*70*R()+R()*20;g+=`<rect x="${i*8+4}" y="${60-h/2}" width="5" height="${h}" rx="2.5" fill="${fg}"/>`}
+  return`<svg class="art" viewBox="0 0 200 120" role="img" aria-label="Abstract art for ${F[f]}"><rect width="200" height="120" fill="${bg}"/><g class="pulse">${g}</g></svg>`}
+// [field, title, hook, question, ship, proof, tags]
+const P=[
+[0,"Does your group chat have its own language?","Your friend group's slang is a tiny dialect. Measure it.","How fast does slang spread inside a friend group, and who starts it?","A script that reads an exported chat (names anonymized, everyone's consent) and charts new-word adoption over time.","20 hand-labeled slang terms, a baseline method, and a plot showing which word dates you got right.","slang chat language social music memes"],
+[0,"Audit a benchmark. Roast it with data.","Everyone cites leaderboards. Few people read the questions.","What share of questions in a popular AI benchmark are wrong, ambiguous, or leaked?","A public error log of 100 questions you hand-checked, tagged by failure type.","Inter-rater check with a friend on 30 of them, plus an error rate with a margin.","ai llm benchmark eval testing"],
+[1,"Build the tiny version of a tool you use daily","Git, Redis, autocomplete. Rebuild one in under 500 lines.","Where does a minimal version match the real thing, and where does it fall apart?","A small working clone with tests.","A benchmark against the real tool and a section titled 'where mine loses'.","git database redis search systems code tools"],
+[1,"Why is this app slow?","Pick an open-source app. Find the lag. Fix it. PR it.","What is the single biggest bottleneck in this codebase, and how much does fixing it save?","A profiled before/after and a pull request (even if not merged).","Flame graph, timing table across 10 runs, and the maintainer's reply if you get one.","performance web speed open source optimization"],
+[2,"Who gets to talk in old novels?","Count dialogue vs. being talked about, by character, across decades.","How did dialogue share by gendered characters change across public-domain novels?","A notebook over Project Gutenberg texts with charts by decade.","Manual check of 100 character labels, with the labeling error rate stated up front.","books gender novels history reading lit"],
+[2,"Trace one rumor through 1900s newspapers","Pick a headline. Watch it mutate town to town.","How did the wording of one story change as it spread through digitized newspapers?","An interactive timeline map using Library of Congress archive scans.","Quoted, cited clippings for every node, plus a note on OCR errors.","news rumor history map archive misinformation"],
+[3,"The real price of ordering in","Menu price is a lie. Add fees and compare.","How much do delivery fees change the real price of the same basket across apps?","A dataset of the same 20 items logged across 3 apps over two weeks.","Your logging method, screenshots as raw data, and a chart with the caveats.","food delivery prices apps money cities student"],
+[3,"Who can actually reach a hospital by bus?","Your city looks connected on a map. Check the clock.","Which neighborhoods can't reach a hospital or library in 30 minutes by public transit?","A map from OpenStreetMap and transit schedule data, with a gap ranking.","Spot-check five routes by actually riding or using the app's own planner.","transit city map access health public data"],
+[4,"Find a planet from your laptop","Public telescope data, a few lines of Python, a real dip in starlight.","Can you recover a known exoplanet's orbit from public light-curve data?","A notebook that cleans the data, finds the transit, and fits the period.","Your period compared to the published catalog value, with the error explained.","space planets nasa astronomy telescope data science"],
+[4,"Break a pattern, or fail to","Pick a number-theory pattern. Throw a billion cases at it.","Does this pattern hold, and where would a counterexample hide?","A fast simulation plus a visualization.","A clear split between 'tested up to N' and 'proved', which is the whole point.","math numbers proof patterns collatz primes puzzles"],
+[5,"Make the confusing form not confusing","Everyone hates one government form. Fix it.","Can a redesign cut the time it takes strangers to finish a confusing form?","A before/after redesign, clickable.","Timed test with 5 people each way and a table of the results.","ux design forms government accessibility figma"],
+[5,"Turn one research paper into a scroll story","Make a hard paper click for your friends.","Do readers understand the paper better from your explainer than from its abstract?","A scrollytelling page for one paper.","Five-question quiz given to 5 people per version, with scores shown.","explainer paper science storytelling visual data journalism"],
+[6,"Where does an AI protein model doubt itself?","Public AI-predicted protein structures come with confidence scores. Read them like a lie detector.","Do low-confidence regions of predicted protein structures line up with parts of the protein that are naturally floppy?","A notebook comparing confidence scores with a public disorder predictor across 20 proteins.","A scatter plot and correlation, plus a list of outliers you checked by hand.","biology protein ai structure alphafold medicine health science"],
+[6,"Fit an outbreak, then try to predict it","Epidemic curves are math you can run on your laptop.","How well does a simple disease-spread model predict next month's cases from this month's data?","A model fit to public historical flu or measles data, with an interactive 'what if' slider.","Hold out the last weeks, predict them, report the error. Say where the model is wrong.","biology disease epidemic covid flu model health math"],
+[7,"Is your city actually getting hotter?","Everyone says it feels worse. Test it with station data.","How much has your city's temperature changed in 40 years, and is it more than random noise?","A trend chart from public weather-station data with an uncertainty band.","Compare a city station to a nearby rural one, and report if the gap is real or just a data glitch.","climate weather city heat earth environment data"],
+[7,"Count the green from space","Satellites don't lie about trees. Compare your neighborhood across 5 years.","Did vegetation in this area go up or down between two years, and where?","A before/after vegetation map from public satellite imagery.","Check five spots against street-level photos and report how many your map got right.","climate satellite trees green map earth environment city"],
+[8,"Does this artist have a sonic fingerprint?","Make a computer guess who made the song, then see why it fails.","Can simple audio features tell one artist's tracks from another's?","A script that pulls audio features from 200 tracks you own the rights to use, and a classifier.","A confusion matrix, plus the songs it confused and a guess about why.","music sound audio spotify songs artist ai playlist"],
+[8,"Find the broken strategy in your favorite game","Run 100,000 matches overnight. Find what the devs missed.","Is one strategy in this game too strong, and what small change would fix it?","A simple simulator of a card, board, or combat game.","Win-rate table from the sim, plus 20 real games with friends to see if they agree.","game games gaming sim strategy cards esports balance"]
+];
+const LV=["Curious beginner","Some projects behind me","Ready for a deeper challenge"],TM=["2 weeks","4 weeks","8 weeks"];
+const SC=["Use the starter data and one method. Keep it small and finish.","Add a baseline to beat and a limits section.","Pre-register your claim, then have a friend rerun it from your README."];
+const PL=[["Day 1-3: set up and collect","Day 4-10: build the core","Day 11-14: test, write up"],["Week 1: data and setup","Week 2-3: build and iterate","Week 4: test, write, publish"],["Week 1-2: question and data","Week 3-5: build","Week 6-7: stress-test it","Week 8: write up, share, ask for feedback"]];
+const st={f:0,l:0,t:1,rank:[],i:0};
+function chips(id,arr,key){const el=$(id);el.innerHTML=arr.map((a,i)=>`<button class="chip" aria-pressed="${st[key]===i}" data-i="${i}">${a}</button>`).join('');
+  el.onclick=e=>{const i=e.target.dataset.i;if(i==null)return;st[key]=+i;chips(id,arr,key)}}
+$('wall').innerHTML=F.map((n,i)=>`<button class="tile" data-i="${i}">${art(i,i+3)}<b>${n}</b></button>`).join('');
+$('wall').onclick=e=>{const b=e.target.closest('.tile');if(!b)return;st.f=+b.dataset.i;chips('fields',F,'f');document.getElementById('make').scrollIntoView()};
+$('sField').innerHTML=F.map((n,i)=>`<option value="${i}">${n}</option>`).join('');
+chips('fields',F,'f');chips('lvl',LV,'l');chips('tm',TM,'t');
+function rank(){
+  const w=$('int').value.toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>2);
+  return P.map((p,i)=>({i,s:(p[0]===st.f?3:0)+w.reduce((a,x)=>a+(p[6].includes(x)||p[1].toLowerCase().includes(x)?2:0),0)})).sort((a,b)=>b.s-a.s||a.i-b.i).map(x=>x.i);
+}
+function show(idx){
+  const p=P[idx],a=$('int').value.trim(),n=st.t;
+  const brief=`${p[1]}\nQuestion: ${p[3]}\nBuild: ${p[4]}\nEvidence: ${p[5]}\nScope: ${SC[st.l]}\nPlan: ${PL[n].join(' | ')}`;
+  $('out').innerHTML=`<div class="res"><div class="banner">${art(p[0],idx+1)}</div><span class="kick">${F[p[0]]} · ${TM[n]} · ${LV[st.l]}</span><h3>${p[1]}</h3><div class="hook">${p[2]}</div>
+  <dl><dt>The question</dt><dd>${p[3]}</dd><dt>You ship</dt><dd>${p[4]}</dd><dt>Evidence</dt><dd>${p[5]}</dd>
+  ${a?`<dt>Your angle</dt><dd>Aim it at <b>${a.replace(/[<>&"]/g,'')}</b>. A personal angle is what makes this yours.</dd>`:''}
+  <dt>Scope for you</dt><dd>${SC[st.l]}</dd><dt>Plan</dt><dd>${PL[n].join('<br>')}</dd></dl>
+  <div class="line">Portfolio line: "I asked: ${p[3].replace(/\?$/,'')}. I built [your artifact] and tested it with [your evidence]. Result: [your number]."</div>
+  <div class="row"><button class="cta" id="again">Another idea ↻</button><button class="cta ghost" id="cp">Copy brief</button></div></div>`;
+  $('again').onclick=()=>{st.i=(st.i+1)%st.rank.length;show(st.rank[st.i])};
+  $('cp').onclick=async()=>{try{await navigator.clipboard.writeText(brief);toast('Copied')}catch(e){toast('Select and copy manually')}};
+  $('out').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+$('go').onclick=()=>{st.rank=rank();st.i=0;show(st.rank[0])};
+function grid(){const q=$('q').value.toLowerCase();
+  const list=P.map((p,i)=>[p,i]).filter(([p])=>!q||(p[1]+p[2]+p[3]+p[6]).toLowerCase().includes(q));
+  $('grid').innerHTML=list.length?list.map(([p,i])=>`<button class="mini" data-i="${i}">${art(p[0],i+1)}<small>${F[p[0]]}</small><b>${p[1]}</b><span>${p[2]}</span></button>`).join(''):'<span>nothing matched. try a broader word.</span>'}
+$('q').oninput=grid;
+$('grid').onclick=e=>{const b=e.target.closest('.mini');if(!b)return;st.rank=[+b.dataset.i];st.i=0;show(+b.dataset.i);document.getElementById('make').scrollIntoView()};
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1600)}
+grid();
+const REPO='sarvleenwalia/sidequest';
+function sugData(){return{f:F[+$('sField').value],t:$('sTitle').value.trim(),b:$('sBody').value.trim(),n:$('sName').value.trim()}}
+function ghLink(){const d=sugData();$('sGh').href=`https://github.com/${REPO}/issues/new?title=${encodeURIComponent('Quest idea: '+d.t)}&body=${encodeURIComponent(`Lane: ${d.f}\n\n${d.b}\n\nFrom: ${d.n||'anonymous'}`)}`}
+['sField','sTitle','sBody','sName'].forEach(i=>$(i).addEventListener('input',ghLink));ghLink();
+$('sGh').onclick=e=>{const d=sugData();if(!d.t||!d.b){e.preventDefault();$('sMsg').textContent='Add a title and a few words about it first.'}};
+(async()=>{
+  let col=null;
+  try{const db=window.claude&&await claude.use('db');if(db)col=db.collection('suggestions')}catch(e){}
+  if(!col)return;
+  $('sPost').hidden=false;
+  col.orderBy('ts','desc').limit(8).onSnapshot(snap=>{
+    const b=$('board');b.textContent='';
+    if(!snap.docs.length){b.textContent='No ideas yet. Be the first.';return}
+    snap.docs.forEach(d=>{const v=d.data(),el=document.createElement('div');el.className='it';
+      const sm=document.createElement('small'),h=document.createElement('b'),tx=document.createElement('div');
+      sm.textContent=String(v.f||'')+(v.n?' · '+v.n:'');h.textContent=String(v.t||'');tx.textContent=String(v.b||'');
+      el.append(sm,document.createElement('br'),h,tx);b.append(el)})
+  },()=>{});
+  $('sPost').onclick=async()=>{const d=sugData();
+    if(!d.t||!d.b){$('sMsg').textContent='Add a title and a few words about it first.';return}
+    $('sPost').disabled=true;
+    try{await col.add({f:d.f,t:d.t,b:d.b,n:d.n,ts:Date.now()});$('sTitle').value=$('sBody').value='';$('sMsg').textContent='Posted. Thanks!';ghLink()}
+    catch(e){$('sMsg').textContent='Could not post here. Use "Send via GitHub" instead.'}
+    setTimeout(()=>$('sPost').disabled=false,3000)};
+})();
+</script>
+</body>
+</html>
