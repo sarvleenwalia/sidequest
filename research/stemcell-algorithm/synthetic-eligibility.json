@@ -1,0 +1,17 @@
+{
+  "eligible_for_declared_cv": true,
+  "reasons": [],
+  "warnings": [
+    "Review partial batch confounding, time points, protocols and donor covariates manually.",
+    "Declared donor IDs cannot be verified automatically; technical replicates must share the original donor ID."
+  ],
+  "cells": 560,
+  "declared_donors": 16,
+  "donors_per_class": {
+    "PD": 8,
+    "control": 8
+  },
+  "batches": 4,
+  "folds_requested": 4,
+  "scope": "Metadata feasibility only; not real-data, biological, clinical, or prospective validation."
+}

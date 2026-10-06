@@ -1,0 +1,5 @@
+{
+  "mitochondrial_example_panel": ["NDUFS1", "NDUFS2", "SDHA", "UQCRC1", "COX4I1", "ATP5F1A"],
+  "lysosomal_example_panel": ["LAMP1", "LAMP2", "CTSD", "CTSB", "GBA1", "TFEB"],
+  "proteostasis_example_panel": ["SQSTM1", "HSPA8", "HSP90AA1", "PSMB5", "PSMC1", "UBB"]
+}
