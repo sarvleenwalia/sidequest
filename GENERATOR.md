@@ -32,3 +32,6 @@ Score specificity, student feasibility, depth, inspectable outcome, evaluation q
 ## Acceptance checks
 
 Every URL resolves to a supporting source. Every brief has a feasible first milestone and a way to assess the outcome. No hardware is required. Different disciplines preserve their own standards. Unavailable data and compute are disclosed. AI-generated suggestions are identified. Failure returns an actionable error rather than fabricated content.
+
+## Current catalog expansion
+303 named directions across 30 fields. 288 are topic-specific proposals assembled from seven method structures (simulation, data analysis, software, close reading, creative comparison, argument cases, and signal experiments). These have not each received a separate literature review or feasibility audit. Search returns named choices, not fabricated citations. The 15 initial adaptations remain available.
