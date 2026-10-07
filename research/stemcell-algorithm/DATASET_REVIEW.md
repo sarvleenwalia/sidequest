@@ -4,7 +4,9 @@
 
 Do not use GSE183248 to report a cross-donor Parkinson's prediction score. It can support descriptive exploration of differentiation and the two specific cell lines. The implemented four-fold classifier needs at least four independent donors in each class; time points, cells and clones cannot replace independent donors.
 
-This review uses the published study and GEO sample listing. No real expression matrix has been downloaded, imported or analyzed, and no biological finding is claimed.
+This review now includes an actual download and descriptive import of the public matrix and metadata. It contains 4,495 cells, 18,097 genes and nine sample categories across two line groups. Matrix totals match the published metadata. No biological mechanism or disease-prediction finding is claimed.
+
+`explore_geo.py` reproduces the import and descriptive visualization. Machine-readable results and SHA-256 input hashes are in `real-data-review/real_data_audit.json` in the downloadable package. The matrix may already reflect upstream filtering; it does not contain all twelve sample titles in the GEO listing. The original exclusion from disease-predictor evaluation still applies.
 
 ## Evidence
 

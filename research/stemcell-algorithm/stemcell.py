@@ -122,6 +122,27 @@ def bh(p):
     return result
 
 
+def donor_bootstrap(y, pred, groups, seed=42, iterations=1000):
+    """Conditional uncertainty of fixed OOF predictions, resampling whole donors."""
+    y, pred, groups = np.asarray(y), np.asarray(pred), np.asarray(groups)
+    donors = np.unique(groups)
+    classes = np.unique(y)
+    rng = np.random.default_rng(seed)
+    scores = []
+    for _ in range(iterations):
+        chosen = rng.choice(donors, size=len(donors), replace=True)
+        indices = np.concatenate([np.flatnonzero(groups == donor) for donor in chosen])
+        if set(y[indices]) != set(classes):
+            continue
+        weights = np.concatenate([np.repeat(1/np.sum(groups == donor), np.sum(groups == donor)) for donor in chosen])
+        scores.append(float(balanced_accuracy_score(y[indices], pred[indices], sample_weight=weights)))
+    if not scores:
+        raise ValueError('Bootstrap contains no evaluable draws.')
+    return {'metric':'balanced_accuracy','interval_95_percent':np.percentile(scores,[2.5,97.5]).tolist(),
+            'valid_draws':len(scores),'requested_draws':iterations,'resampling_unit':'donor',
+            'method':'Percentile bootstrap of fixed out-of-fold predictions; models are not refitted. Not external-validation uncertainty.'}
+
+
 def differential(X, labels, names):
     """Exploratory Welch tests on donor log-normalized pseudobulk, not cell tests."""
     classes = np.unique(labels)
@@ -142,7 +163,7 @@ def differential(X, labels, names):
                          'mean_log_difference': delta, 'p_value': p, 'q_value': bh(p)}).sort_values('q_value')
 
 
-def model_evaluation(X, units, folds, features, seed, permutations=0):
+def model_evaluation(X, units, folds, features, seed, permutations=0, with_interval=True):
     y = units.label.astype(str).to_numpy()
     groups = units.donor_id.astype(str).to_numpy()
     classes = np.unique(y)
@@ -180,6 +201,8 @@ def model_evaluation(X, units, folds, features, seed, permutations=0):
                'classes': list(classes), 'confusion_matrix': confusion_matrix(y, pred, labels=classes).tolist(),
                'confusion_matrix_unit': 'donor/label pseudobulk rows', 'donors_by_class': donor_counts,
                'evaluation_unit': 'held-out donor', 'folds': records}
+    if with_interval:
+        summary['conditional_bootstrap'] = donor_bootstrap(y,pred,groups,seed,1000)
     if len(classes) == 2:
         summary['roc_auc'] = float(roc_auc_score(y == classes[1], proba[:, 1], sample_weight=weights))
     null_scores = []
@@ -195,7 +218,7 @@ def model_evaluation(X, units, folds, features, seed, permutations=0):
                 shuffled = units.copy()
                 shuffled['label'] = [perm[d] for d in groups]
                 try:
-                    null, _, _ = model_evaluation(X, shuffled, folds, features, seed)
+                    null, _, _ = model_evaluation(X, shuffled, folds, features, seed, with_interval=False)
                     null_scores.append(null['balanced_accuracy'])
                 except ValueError:
                     continue

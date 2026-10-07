@@ -9,6 +9,11 @@ import stemcell as s
 
 
 class PipelineTests(unittest.TestCase):
+    def test_donor_bootstrap_perfect_predictions(self):
+        result = s.donor_bootstrap(['a','a','b','b'],['a','a','b','b'],['d1','d2','d3','d4'],iterations=100)
+        self.assertEqual(result['interval_95_percent'],[1.,1.])
+        self.assertEqual(result['resampling_unit'],'donor')
+
     def test_qc_removes_high_mitochondrial_and_empty_cells(self):
         X = sparse.csr_matrix([[90,10,0],[1,20,30],[0,0,0]])
         keep, _ = s.qc(X, ['MT-ND1','TH','DDC'], min_genes=2, max_mt=20)

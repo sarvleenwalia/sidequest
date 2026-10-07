@@ -1,0 +1,34 @@
+{
+  "accession": "GSE183248",
+  "source_urls": {
+    "GSE183248_Metadata.csv.gz": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/GSE183248/suppl/GSE183248_Metadata.csv.gz",
+    "GSE183248_Raw_data.csv.gz": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/GSE183248/suppl/GSE183248_Raw_data.csv.gz"
+  },
+  "input_sha256": {
+    "GSE183248_Metadata.csv.gz": "b8bb1b475fdc6448fd801732647d1b2e1d1f90d0d72f70c34bd542e26649ec52",
+    "GSE183248_Raw_data.csv.gz": "df67841f18757a8caf24ced9af7a2e741ec4d9df9de3ac8391bd31a96c4b9923"
+  },
+  "synthetic": false,
+  "cells": 4495,
+  "genes": 18097,
+  "cells_after_example_qc": 4495,
+  "sample_categories_in_download": 9,
+  "line_groups": [
+    "Control",
+    "PINK1"
+  ],
+  "matrix_totals_match_published_metadata": true,
+  "published_mito_fraction_range": [
+    0.0,
+    0.0583533173461231
+  ],
+  "classifier_eligible": false,
+  "disease_prediction_metrics": null,
+  "decision": "Two cell-line groups; no independent donor replication within condition. Do not report cross-donor PD accuracy.",
+  "limitations": [
+    "Public matrix may already reflect upstream filtering; downloaded cells are not all originally sequenced cells.",
+    "GEO lists 12 samples, but this downloaded matrix has 9 sample categories.",
+    "SVD is descriptive; differences may reflect time point, line identity, mutation, protocol or other factors.",
+    "No cell-type annotations were inferred. No early vulnerability or future cell fate was predicted."
+  ]
+}

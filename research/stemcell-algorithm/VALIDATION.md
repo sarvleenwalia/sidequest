@@ -19,6 +19,10 @@ An end-to-end CLI run completed on 560 synthetic cells, 300 genes and 16 synthet
 
 The verified-results directory contains the current run. The cell embedding is a visualization of invented data. All four folds have disjoint training and test donors; raw input file SHA-256 hashes and run parameters were exported.
 
-Not validated: real GEO data import/harmonization, biological pathway findings, batch correction, prospective fate prediction, early disease vulnerability, clinical use, causal mechanisms or treatment implications. Future validation must use independent real donor data and a prespecified scientific design.
+The new release also imports actual GSE183248 counts and metadata: 4,495 aligned cells and 18,097 genes. Counts are nonnegative integers, gene IDs are unique, and per-cell total counts match published metadata. This establishes technical import of that particular matrix, not successful cross-study harmonization or biological prediction.
+
+Not validated: cross-study harmonization, biological pathway findings, batch correction, prospective fate prediction, early disease vulnerability, clinical use, causal mechanisms or treatment implications. Future validation must use independent real donor data and a prespecified scientific design.
 
 Three additional metadata-audit tests passed: eligible declared metadata; repeated samples correctly counted as two donors rather than eight; complete batch/label confounding rejected. Total: thirteen passing tests across the pipeline and the new audit tool. The supplied synthetic metadata audit passes only these metadata feasibility checks.
+
+Release update: a fourteenth test verifies the donor-bootstrap uncertainty helper. All fourteen tests passed together. The current synthetic run (release-results) reports a conditional 95% balanced-accuracy interval of approximately 78.6% to 100%; it resamples fixed out-of-fold donor predictions without model refitting. Neither this interval nor the synthetic AUC is real-patient validation.

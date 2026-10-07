@@ -1,6 +1,10 @@
-# Stem cell transcriptomics algorithm
+# StemScope research evidence studio
 
 This is an executable research prototype implementing the supplied abstract by Sarvleen Kaur Walia. It analyzes raw single-cell RNA-seq counts, creates donor-level expression profiles, and evaluates a model on held-out donors. It does not establish early Parkinson's vulnerability, predict future clinical outcomes, or recommend therapies.
+
+Open [the live evidence studio](https://sarvleenwalia.github.io/sidequest/research/stemcell-algorithm/) to inspect the real-study review, clearly labeled synthetic benchmark and product pitch. [PITCH.md](PITCH.md) contains the short introduction, product hypothesis, milestones and reviewer questions. StemScope is a working product name, not an affiliation or endorsement.
+
+The current release includes a real descriptive analysis of GSE183248: 4,495 cells and 18,097 genes from two cell-line groups. Raw-count totals match published metadata. Disease prediction is withheld because the experiment does not independently replicate donors within each condition. Fourteen software tests passed; no independent real-cohort prediction score has been established.
 
 ## What it does
 
@@ -69,6 +73,17 @@ The document title says cell-fate prediction but its abstract describes PD/contr
 - `pathway_scores.csv`, `pathway_coverage.json`: optional panel expression and coverage.
 - `metrics.json`, `run_manifest.json`: results, limitations, settings and package versions.
 
+The downloadable archive also includes `release-results/` (synthetic predictions with conditional donor-bootstrap uncertainty) and `real-data-review/` (actual public-study QC, descriptive embedding, sample summary and hashed provenance). `verified-results/` retains the earlier synthetic run for history. The viewer uses release-results and real-data-review, never silently combines their metrics.
+
+To reproduce the real-study review and rebuild the viewer:
+
+```powershell
+python explore_geo.py --download --source geo-data --out new-real-review
+python build_dashboard.py
+```
+
+The dashboard builder expects the included release-results and real-data-review directories. It creates a static HTML viewer of precomputed reports. It does not run remote analyses or collect uploaded datasets.
+
 Outputs should go to a new directory for each run to avoid confusing old artifacts with current outputs. No model is presented as a deployable clinical predictor; this pipeline is for evaluating a research hypothesis.
 
 ## Scientific next steps
@@ -80,6 +95,6 @@ Obtain raw counts and trustworthy donor metadata; inspect QC, doublets, ambient 
 - [Scanpy preprocessing and clustering](https://scanpy.readthedocs.io/en/latest/tutorials/basics/clustering.html): reference workflow for QC and normalization. This implementation uses SciPy/scikit-learn, not Scanpy itself; SVD/K-means are deliberately lightweight alternatives.
 - [Scanpy total-count normalization](https://scanpy.readthedocs.io/en/stable/generated/scanpy.pp.normalize_total.html).
 - [scikit-learn grouped cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html): donors must not overlap training and testing.
-- [GEO GSE183248](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE183248): a candidate study of human iPSC differentiation and Parkinson's disease. No data from it has been downloaded, harmonized or tested here. Check its sample-level metadata, time points, donor identity and reuse conditions before importing it. Twelve experimental samples do not automatically mean twelve independent donors.
+- [GEO GSE183248](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE183248): real descriptive import completed; cross-donor disease classifier evaluation rejected. Twelve experimental samples do not automatically mean twelve independent donors. See DATASET_REVIEW.md for the measured import and design limitations.
 
 The abstract's claims of novelty, precise early signatures and direct therapy impact have not been established by this implementation.
