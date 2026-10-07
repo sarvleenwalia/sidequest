@@ -7,6 +7,7 @@
 <meta name="description" content="Pick a field, get a specific question, a thing to build, and evidence you can defend. Built for makers and applicants.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Mono:wght@400;500&display=swap">
 <style>
+[hidden]{display:none!important}
 :root{--bg:#f3f4ff;--ink:#0d0f2b;--mute:#565a82;--card:#fff;--line:#d5d8f3;--acc:#2b3cff;--pop:#ff5c35;--hi:#d7ff3f}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b0c1f;--ink:#f1f2ff;--mute:#9a9ec9;--card:#14163a;--line:#2a2d63;--acc:#8a95ff;--pop:#ff7a58;--hi:#d7ff3f}}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -112,6 +113,16 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mute);fo
     <div class="row"><button class="cta" id="go">Find my project ✳</button></div>
   </div>
   <div id="out" aria-live="polite"></div>
+  <div class="res" id="ai-panel" style="margin-top:20px">
+    <h3>Make a fresh project with AI</h3>
+    <p>Use your selected field, experience, time and interest to create a new brief. AI proposals need source and feasibility checks.</p>
+    <div id="ai-verification"></div>
+    <button class="cta" id="ai-go" disabled>Generate with AI</button>
+    <p id="ai-status" role="status">AI connection is being configured. The project library works above.</p>
+    <div id="ai-result" aria-live="polite" style="white-space:pre-wrap;overflow-wrap:anywhere"></div>
+    <button class="cta ghost" id="ai-copy" hidden>Copy AI brief</button>
+  </div>
+
 </section>
 
 <section id="all">
@@ -247,5 +258,30 @@ $('sGh').onclick=e=>{const d=sugData();if(!d.t||!d.b){e.preventDefault();$('sMsg
     setTimeout(()=>$('sPost').disabled=false,3000)};
 })();
 </script>
+
+<script id="sidequest-ai-config">
+// Public deployment values only. Never put API keys here.
+window.SIDEQUEST_AI = { endpoint: "https://gentle-queen-4495.sarvleenwalia.workers.dev/generate", siteKey: "0x4AAAAAAFQtBPpyUBO7LXNn" };
+</script>
+<script id="sidequest-ai-client">
+(()=>{
+ const config=window.SIDEQUEST_AI, button=document.getElementById('ai-go'),status=document.getElementById('ai-status'),result=document.getElementById('ai-result');
+ let token='',widget=null,busy=false;
+ if(!config.endpoint||!config.siteKey)return;
+ let endpoint;try{endpoint=new URL(config.endpoint);if(endpoint.protocol!=='https:')throw Error();}catch{status.textContent='AI connection needs a valid server address.';return;}
+ const challenge=document.createElement('script');challenge.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';challenge.async=true;
+ challenge.onerror=()=>{status.textContent='Verification could not load. Use the project library or retry later.';};
+ challenge.onload=()=>{widget=window.turnstile.render('#ai-verification',{sitekey:config.siteKey,action:'sidequest-generate',callback:value=>{token=value;button.disabled=busy;status.textContent='Ready. Your selected preferences will be sent to the AI provider.';},'expired-callback':()=>{token='';button.disabled=true;},'error-callback':()=>{token='';button.disabled=true;status.textContent='Verification failed. Please try again.';}});};document.head.append(challenge);
+ button.addEventListener('click',async()=>{
+  if(busy||!token)return;busy=true;button.disabled=true;status.textContent='Generating your project…';
+  const prompt=`Design a concrete research-inspired project without hardware. Field: ${F[st.f]}. Experience: ${LV[st.l]}. Time: ${TM[st.t]}. Interest: ${document.getElementById('int').value.trim()||'open'}. Include a specific question, deliverable, plan, evaluation, first step and an honest portfolio template. Do not invent citations or accomplished results.`;
+  try{const response=await fetch(endpoint.href,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,token}),signal:AbortSignal.timeout(45000)});const data=await response.json();if(!response.ok)throw Error(data.error||'Generation failed.');if(typeof data.text!=='string'||!data.text.trim())throw Error('No project returned.');result.textContent=data.text;document.getElementById('ai-copy').hidden=false;status.textContent='AI-generated proposal. Check sources and test feasibility before claiming results.';}
+  catch(error){status.textContent=error.name==='TimeoutError'?'Generation timed out. Try again.':error.message||'Generation failed. Try again.';}
+  finally{busy=false;token='';button.disabled=true;if(widget!==null)window.turnstile.reset(widget);}
+ });
+ document.getElementById('ai-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(result.textContent);status.textContent='Copied.';}catch{status.textContent='Select the project text and copy it manually.';}});
+})();
+</script>
+
 </body>
 </html>
