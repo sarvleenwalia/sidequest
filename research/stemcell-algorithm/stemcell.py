@@ -18,7 +18,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score, confusion_matrix
-from sklearn.model_selection import StratifiedGroupKFold
+from sklearn.model_selection import StratifiedGroupKFold, StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 os.environ.setdefault('MPLCONFIGDIR', str(Path(tempfile.gettempdir()) / 'stemcell-matplotlib'))
@@ -172,8 +172,18 @@ def model_evaluation(X, units, folds, features, seed, permutations=0, with_inter
     donor_counts = {c: len(set(groups[y == c])) for c in classes}
     if min(donor_counts.values()) < folds or folds < 2:
         raise ValueError(f'Need at least {folds} donors in every class; found {donor_counts}.')
-    splitter = StratifiedGroupKFold(n_splits=folds, shuffle=True, random_state=seed)
-    splits = list(splitter.split(X, y, groups))
+    # Split unique donors directly when each donor has one label. Grouped
+    # stratification is approximate and can lose a class on small cohorts.
+    if units.groupby('donor_id').label.nunique().max() == 1:
+        donors = np.unique(groups)
+        labels = np.array([y[groups == donor][0] for donor in donors])
+        splitter = StratifiedKFold(n_splits=folds, shuffle=True, random_state=seed)
+        splits = [(np.flatnonzero(np.isin(groups, donors[train])),
+                   np.flatnonzero(np.isin(groups, donors[test])))
+                  for train, test in splitter.split(donors, labels)]
+    else:
+        splitter = StratifiedGroupKFold(n_splits=folds, shuffle=True, random_state=seed)
+        splits = list(splitter.split(X, y, groups))
     proba = np.zeros((len(y), len(classes)))
     coefficients, records = [], []
     for i, (train, test) in enumerate(splits):
@@ -248,7 +258,9 @@ def pathways(path, X, names, units):
     return result, coverage
 
 
-def run(args):
+def run(args, progress=None):
+    notify = progress or (lambda message: None)
+    notify('Reading and validating counts…')
     out = Path(args.out)
     if out.exists() and any(out.iterdir()):
         raise ValueError('Output directory is not empty. Use a new directory for each run.')
@@ -264,6 +276,7 @@ def run(args):
     if args.task == 'pd' and meta.groupby('donor_id')[args.label].nunique().max() > 1:
         raise ValueError('PD status must be consistent within a donor.')
     n_input = X.shape[0]
+    notify('Filtering cells and genes…')
     keep, metrics = qc(X, names, args.min_genes, args.max_mt, args.mt_prefix)
     metrics.index = meta.index
     metrics.to_csv(out/'cell_qc.csv', index_label='cell_id')
@@ -290,10 +303,12 @@ def run(args):
         raise ValueError('Every batch contains only one label: complete batch/label confounding. Obtain overlapping batches before interpreting a classifier.')
     if len(batch_table) > 1:
         warning.append('Multiple batches detected; batch-label overlap alone does not rule out confounding. Review protocol and time-point effects; this model does not adjust batch.')
+    notify('Calculating the descriptive embedding…')
     Y = normalize(X)
     # Whole-dataset embedding is descriptive only, never fed to cross-validation.
     dim = min(20, Y.shape[0]-1, Y.shape[1]-1)
     embed = TruncatedSVD(n_components=dim, random_state=args.seed).fit_transform(Y)
+    notify('Calculating descriptive cell clusters…')
     cluster = KMeans(n_clusters=min(args.clusters, X.shape[0]), n_init=10, random_state=args.seed).fit_predict(embed)
     cells = meta.copy()
     cells['cluster'] = cluster
@@ -303,6 +318,7 @@ def run(args):
     plt.scatter(embed[:, 0], embed[:, 1], c=cluster, s=7, cmap='tab10', alpha=.65)
     plt.xlabel('SVD 1'); plt.ylabel('SVD 2'); plt.title('Descriptive cell clusters (not annotated cell fates)')
     plt.tight_layout(); plt.savefig(out/'clusters.png', dpi=160); plt.close()
+    notify('Training and evaluating on separate donors…')
     bulk, units = pseudobulk(X, meta, args.label, args.min_cells)
     bx = normalize(bulk).toarray()
     report, predictions, importance = model_evaluation(bx, units, args.folds, args.features, args.seed, args.permutations)
@@ -322,7 +338,13 @@ def run(args):
                    'synthetic': args.synthetic, 'warnings': warning,
                    'interpretation': 'Exploratory label classification, not future vulnerability, clinical diagnosis, causal mechanism, or validated treatment guidance.'})
     (out/'metrics.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-    versions = {p: importlib.metadata.version(p) for p in ['numpy','pandas','scipy','scikit-learn','matplotlib','anndata']}
+    notify('Writing results and reproducibility manifest…')
+    versions = {}
+    for package in ['numpy','pandas','scipy','scikit-learn','matplotlib','anndata']:
+        try:
+            versions[package] = importlib.metadata.version(package)
+        except importlib.metadata.PackageNotFoundError:
+            versions[package] = 'not installed (not required for CSV input)'
     hashes = {}
     for source in [args.counts, args.metadata, args.genes, args.pathways]:
         if source:

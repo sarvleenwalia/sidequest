@@ -4,7 +4,7 @@ This is an executable research prototype implementing the supplied abstract by S
 
 Open [the live evidence studio](https://sarvleenwalia.github.io/sidequest/research/stemcell-algorithm/) to inspect the real-study review, clearly labeled synthetic benchmark and product pitch. [PITCH.md](PITCH.md) contains the short introduction, product hypothesis, milestones and reviewer questions. StemScope is a working product name, not an affiliation or endorsement.
 
-The current release includes a real descriptive analysis of GSE183248: 4,495 cells and 18,097 genes from two cell-line groups. Raw-count totals match published metadata. Disease prediction is withheld because the experiment does not independently replicate donors within each condition. Fourteen software tests passed; no independent real-cohort prediction score has been established.
+The current release includes a real descriptive analysis of GSE183248: 4,495 cells and 18,097 genes from two cell-line groups. Raw-count totals match published metadata. Disease prediction is withheld because the experiment does not independently replicate donors within each condition. Fifteen software tests passed; no independent real-cohort prediction score has been established.
 
 ## What it does
 
@@ -19,6 +19,8 @@ The current release includes a real descriptive analysis of GSE183248: 4,495 cel
 9. Scores supplied gene panels descriptively and reports gene coverage. Included panels are small examples, not complete or validated pathway definitions. Replace them with versioned curated gene sets and record the source.
 
 ## Run
+
+The live site's **Run analysis** tab accepts raw-count CSV and matching metadata CSV, or runs an explicitly synthetic sample. The existing Python algorithm runs locally in a Web Worker. First use downloads Python and scientific libraries and may take a few minutes. Uploaded files are not sent to a server. A run produces downloadable metrics, held-out predictions, QC, plots and a manifest. The browser limits counts to 20 MB and metadata to 5 MB; cancel and use the desktop package for larger data. Four folds require at least four independently declared donors per disease class. Passing metadata checks does not verify the biological independence of those donors.
 
 On GitHub, the source files are browsable directly. Download and extract `stemcell-algorithm.zip` in this folder for the complete package including synthetic demo-data and verified-results. See [DATASET_REVIEW.md](DATASET_REVIEW.md) for the first real-study eligibility review and the metadata audit command.
 

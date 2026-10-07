@@ -1,5 +1,5 @@
 {
-  "balanced_accuracy": 0.9375,
+  "balanced_accuracy": 1.0,
   "majority_baseline_balanced_accuracy": 0.5,
   "classes": [
     "PD",
@@ -7,8 +7,8 @@
   ],
   "confusion_matrix": [
     [
-      7,
-      1
+      8,
+      0
     ],
     [
       0,
@@ -28,21 +28,21 @@
         "donor_01",
         "donor_02",
         "donor_03",
-        "donor_04",
-        "donor_05",
         "donor_06",
         "donor_07",
         "donor_08",
         "donor_09",
+        "donor_10",
         "donor_11",
         "donor_12",
-        "donor_14"
+        "donor_14",
+        "donor_15"
       ],
       "test_donors": [
         "donor_00",
-        "donor_10",
-        "donor_13",
-        "donor_15"
+        "donor_04",
+        "donor_05",
+        "donor_13"
       ],
       "train_units": 12,
       "test_units": 4
@@ -52,22 +52,22 @@
       "train_donors": [
         "donor_00",
         "donor_02",
+        "donor_03",
+        "donor_04",
         "donor_05",
         "donor_06",
         "donor_07",
         "donor_09",
         "donor_10",
-        "donor_11",
-        "donor_12",
         "donor_13",
         "donor_14",
         "donor_15"
       ],
       "test_donors": [
         "donor_01",
-        "donor_03",
-        "donor_04",
-        "donor_08"
+        "donor_08",
+        "donor_11",
+        "donor_12"
       ],
       "train_units": 12,
       "test_units": 4
@@ -79,20 +79,20 @@
         "donor_01",
         "donor_03",
         "donor_04",
+        "donor_05",
         "donor_06",
-        "donor_07",
         "donor_08",
-        "donor_10",
         "donor_11",
+        "donor_12",
         "donor_13",
         "donor_14",
         "donor_15"
       ],
       "test_donors": [
         "donor_02",
-        "donor_05",
+        "donor_07",
         "donor_09",
-        "donor_12"
+        "donor_10"
       ],
       "train_units": 12,
       "test_units": 4
@@ -103,21 +103,21 @@
         "donor_00",
         "donor_01",
         "donor_02",
-        "donor_03",
         "donor_04",
         "donor_05",
+        "donor_07",
         "donor_08",
         "donor_09",
         "donor_10",
+        "donor_11",
         "donor_12",
-        "donor_13",
-        "donor_15"
+        "donor_13"
       ],
       "test_donors": [
+        "donor_03",
         "donor_06",
-        "donor_07",
-        "donor_11",
-        "donor_14"
+        "donor_14",
+        "donor_15"
       ],
       "train_units": 12,
       "test_units": 4
@@ -126,7 +126,7 @@
   "conditional_bootstrap": {
     "metric": "balanced_accuracy",
     "interval_95_percent": [
-      0.7857142857142857,
+      1.0,
       1.0
     ],
     "valid_draws": 1000,
@@ -136,24 +136,24 @@
   },
   "roc_auc": 1.0,
   "permutation_scores": [
-    0.5625,
-    0.6875,
-    0.6875,
-    0.5625,
-    0.375,
-    0.375,
-    0.3125,
     0.5,
-    0.375,
+    0.6875,
+    0.875,
+    0.5625,
+    0.625,
+    0.5625,
+    0.5,
+    0.5,
+    0.625,
+    0.8125,
+    0.3125,
     0.625,
     0.375,
-    0.375,
     0.5625,
-    0.375,
+    0.5,
+    0.625,
     0.5625,
-    0.6875,
-    0.1875,
-    0.375,
+    0.4375,
     0.8125
   ],
   "successful_permutations": 19,
@@ -161,14 +161,14 @@
   "task": "pd",
   "label_column": "status",
   "cells_input": 560,
-  "cells_analyzed": 560,
+  "cells_analyzed": 558,
   "genes_analyzed": 300,
   "donors": 16,
   "synthetic": true,
   "warnings": [
+    "No cell-type subset: PD status may reflect cell composition. Not a dopaminergic-specific result.",
     "Multiple batches detected; batch-label overlap alone does not rule out confounding. Review protocol and time-point effects; this model does not adjust batch.",
-    "Differential tests use donor pseudobulk but do not adjust batch, sex, age, or genotype; use a count-based design model for publication.",
-    "Pathway scores are descriptive standardized expression averages, not enrichment significance or causal evidence."
+    "Differential tests use donor pseudobulk but do not adjust batch, sex, age, or genotype; use a count-based design model for publication."
   ],
   "interpretation": "Exploratory label classification, not future vulnerability, clinical diagnosis, causal mechanism, or validated treatment guidance."
 }

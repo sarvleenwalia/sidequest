@@ -9,6 +9,18 @@ import stemcell as s
 
 
 class PipelineTests(unittest.TestCase):
+    def test_single_label_donor_folds_keep_every_class(self):
+        # Minimum eligible cohort, ordered by class, with two profiles/donor.
+        units = pd.DataFrame({'donor_id':[f'd{i//2}' for i in range(16)],
+                              'label':['a']*8+['b']*8})
+        X = np.random.default_rng(1).normal(size=(16,8))
+        for seed in [0, 4, 42]:
+            report, _, _ = s.model_evaluation(X, units, 4, 4, seed, with_interval=False)
+            labels = dict(zip(units.donor_id, units.label))
+            for fold in report['folds']:
+                self.assertEqual({labels[d] for d in fold['test_donors']}, {'a','b'})
+                self.assertFalse(set(fold['train_donors']) & set(fold['test_donors']))
+
     def test_donor_bootstrap_perfect_predictions(self):
         result = s.donor_bootstrap(['a','a','b','b'],['a','a','b','b'],['d1','d2','d3','d4'],iterations=100)
         self.assertEqual(result['interval_95_percent'],[1.,1.])
