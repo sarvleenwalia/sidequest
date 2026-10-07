@@ -1,0 +1,35 @@
+name: StemScope research tests
+on:
+  push:
+    paths:
+      - 'research/stemcell-algorithm/**'
+      - '.github/workflows/stemscope.yml'
+  pull_request:
+    paths:
+      - 'research/stemcell-algorithm/**'
+      - '.github/workflows/stemscope.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: research/stemcell-algorithm/requirements.txt
+      - name: Install scientific dependencies
+        run: python -m pip install -r research/stemcell-algorithm/requirements.txt
+      - name: Run donor safety and input tests
+        working-directory: research/stemcell-algorithm
+        run: python -m unittest -v
+      - name: Exercise the complete synthetic workflow
+        working-directory: research/stemcell-algorithm
+        run: |
+          python stemcell.py demo --out ci-data
+          python audit_metadata.py --metadata ci-data/metadata.csv --out ci-eligibility.json
+          python stemcell.py run --counts ci-data/counts.csv --metadata ci-data/metadata.csv --cell-type dopaminergic --min-genes 100 --synthetic --out ci-results
