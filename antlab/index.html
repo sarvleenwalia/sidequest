@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AntLab: ant colony search, mazes and chess</title>
+<meta name="description" content="An experiment lab for ant colony optimization. Compare ants to shortest paths in mazes, and train ant-based chess players with measured results.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Familjen+Grotesk:wght@500;600;700&family=Fragment+Mono&display=swap">
+<script src="chess.min.js"></script>
+<style>
+:root{--bg:#f4f1ea;--card:#fffdf8;--ink:#1d2417;--mute:#667060;--line:#ddd8cb;--leaf:#2f7d32;--amb:#e08a00;--acc:#2f7d32;--sqL:#efe0bd;--sqD:#a97c50;--wall:#35432d;--cor:#f4eedd}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#10150e;--card:#192015;--ink:#ecf0e4;--mute:#9aa690;--line:#2c3626;--leaf:#7ed67f;--amb:#ffb43d;--acc:#7ed67f;--sqL:#d2bf93;--sqD:#7d5e41;--wall:#080c07;--cor:#243322}}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:70px}
+body{margin:0;background:radial-gradient(900px 420px at 85% -5%,color-mix(in srgb,var(--leaf) 16%,transparent),transparent),radial-gradient(700px 400px at -5% 30%,color-mix(in srgb,var(--amb) 10%,transparent),transparent),var(--bg);color:var(--ink);font:16px/1.5 "Familjen Grotesk",system-ui,sans-serif}
+.mono{font-family:"Fragment Mono",ui-monospace,monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:14px;height:56px}
+.logo{font-weight:700;font-size:20px;flex:0 0 auto}.logo i{font-style:normal;color:var(--amb)}
+[role=tablist]{display:flex;gap:4px;margin-left:auto}
+[role=tab]{font:600 14px inherit;border:0;background:none;color:var(--mute);padding:8px 14px;border-radius:99px;cursor:pointer}
+[role=tab][aria-selected=true]{background:var(--ink);color:var(--bg)}
+h1{font-size:clamp(34px,6vw,60px);line-height:1;margin:40px 0 10px;letter-spacing:-.025em}
+h1 em{font-style:normal;color:var(--leaf)}
+h2{font-size:20px;margin:0 0 10px}
+.lead{color:var(--mute);max-width:640px;font-size:18px;margin:0 0 22px}
+.tab{display:none;padding-bottom:50px}.tab.on{display:block}
+.grid{display:grid;gap:16px;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 1px 0 #fff4 inset,0 8px 24px -14px #0003}
+#hero{width:100%;height:150px;display:block;margin:-6px 0 22px;border-radius:18px;background:linear-gradient(135deg,var(--wall),color-mix(in srgb,var(--wall) 70%,var(--leaf)))}
+canvas#mz{width:100%;aspect-ratio:1;display:block;border-radius:14px;background:var(--wall)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.b{font:600 14px inherit;padding:10px 15px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;min-height:42px}
+button.b:hover:not(:disabled){border-color:var(--acc)}button.b:disabled{opacity:.45;cursor:not-allowed}
+button.b.p{background:var(--leaf);border-color:var(--leaf);color:#fff}
+@media(prefers-color-scheme:dark){button.b.p{color:#10150e}}
+select{font:inherit;padding:9px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+button:focus-visible,select:focus-visible,[role=tab]:focus-visible{outline:3px solid var(--amb);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.st{background:var(--bg);border-radius:10px;padding:10px}.st b{display:block;font:500 22px "Fragment Mono",monospace}.st span{font-size:12px;color:var(--mute)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-top:10px}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:7px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}
+.note{font-size:13px;color:var(--mute);border-left:3px solid var(--amb);padding-left:10px;margin-top:10px}
+.bwrap{container-type:inline-size;width:100%;max-width:560px}
+#bd{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));aspect-ratio:1;border:10px solid #3a2a1a;border-radius:10px;overflow:hidden;user-select:none;box-shadow:0 18px 40px -18px #000a,0 0 0 2px #0004}
+.sq{min-width:0;min-height:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:9.5cqw;line-height:1;cursor:pointer;border:0;padding:0;font-family:"Segoe UI Symbol","Noto Sans Symbols 2",serif}
+.sq.l{background:linear-gradient(135deg,var(--sqL),color-mix(in srgb,var(--sqL) 88%,#fff))}.sq.d{background:linear-gradient(135deg,var(--sqD),color-mix(in srgb,var(--sqD) 88%,#000))}.sq:hover{filter:brightness(1.08)}
+.sq .co{-webkit-text-stroke:0;font-style:normal;position:absolute;font:600 10px/1 'Familjen Grotesk',sans-serif;opacity:.7;pointer-events:none}.sq .co.f{right:4px;bottom:3px}.sq .co.rk{left:4px;top:3px}.sq.l .co{color:var(--sqD)}.sq.d .co{color:var(--sqL)}
+.sq span.g{display:block;transition:transform .12s;filter:drop-shadow(0 2px 2px #0006)}.sq:hover span.g{transform:translateY(-2px) scale(1.06)}
+.sq.w{color:#fff9ec;-webkit-text-stroke:1.6px #2a1a0c;paint-order:stroke fill}.sq.k{color:#17120d;-webkit-text-stroke:1px #f2e7cf66;paint-order:stroke fill}
+.sq.sel{outline:4px solid var(--amb);outline-offset:-4px}
+.sq.last:after{content:"";position:absolute;inset:0;background:#ffd23f55}
+.sq.mv:before{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:#1f6b2799;z-index:1}.sq.mv.cap:before{width:86%;height:86%;background:none;border:5px solid #c0392bcc}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}.bar>i{display:block;height:100%;background:var(--leaf);width:0;transition:width .15s}
+.mv-row{display:grid;grid-template-columns:54px 1fr 70px;gap:8px;align-items:center;font-size:14px;margin:6px 0}
+.mv-row .bar>i{background:var(--amb)}
+#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+#toast.on{opacity:1}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.cards .card{margin:0}.cards b{display:block;color:var(--leaf);font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+h1.t2{font-size:clamp(28px,5vw,44px);line-height:1.05;margin:28px 0 6px;letter-spacing:-.02em}
+.statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 14px}
+.statbar .st{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}.statbar .st b{font-size:28px;line-height:1.1}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:none;font:600 15px inherit;color:var(--mute);padding:10px 6px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 5px #0003}
+button.b.ghost{background:none}
+button.b:active:not(:disabled){transform:scale(.97)}
+#stat{display:inline-flex;gap:9px;align-items:center;background:var(--card);border:1px solid var(--line);padding:9px 16px;border-radius:99px;font:600 14px "Familjen Grotesk",sans-serif}
+#stat:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 25%,transparent)}
+#stat.end:before{background:var(--amb);box-shadow:0 0 0 4px color-mix(in srgb,var(--amb) 25%,transparent)}
+tbody tr:nth-child(even){background:var(--bg)}td:not(:first-child){font-family:"Fragment Mono",monospace}
+@media(max-width:700px){header{backdrop-filter:none;background:var(--bg)}header .wrap{height:52px}
+ [role=tablist]{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));margin:0;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px;box-shadow:0 10px 30px -8px #0007;z-index:20}
+ [role=tab]{flex:1;padding:12px 6px;font-size:15px}main{padding-bottom:96px}#hero{height:110px}#toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}h1{margin-top:24px}.statbar{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- new look ---- */
+:root{--bg:#f3efff;--card:#fff;--ink:#16112f;--mute:#5d5683;--line:#16112f22;--bd:#16112f;--leaf:#6a3dff;--amb:#ffb020;--pop:#ff4d8d;--hi:#c6ff3d;--wall:#1c1250;--cor:#f4f0ff;--sqL:#f1ecff;--sqD:#8a77ff}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e0a24;--card:#1a1440;--ink:#f4f0ff;--mute:#a79fd6;--line:#f4f0ff22;--bd:#8d7bff;--leaf:#a28bff;--amb:#ffc04d;--pop:#ff6fa5;--wall:#07041a;--cor:#2a2060;--sqL:#d2c8ff;--sqD:#5a43c9}}
+body{font-family:"Familjen Grotesk",system-ui,sans-serif;background:radial-gradient(color-mix(in srgb,var(--ink) 12%,transparent) 1.2px,transparent 1.2px) 0 0/22px 22px,var(--bg)}
+h1,h2,.logo,h1.t2{font-family:"Bricolage Grotesque","Familjen Grotesk",sans-serif;letter-spacing:-.03em}
+h1{font-size:clamp(46px,9.5vw,104px);line-height:.92;font-weight:800;margin:14px 0 12px}
+h1 em{font-style:normal;color:var(--ink);background:var(--hi);padding:0 .12em;border-radius:.14em;display:inline-block;transform:rotate(-2.5deg);box-shadow:5px 5px 0 var(--ink)}
+@media(prefers-color-scheme:dark){h1 em{color:#16112f}}
+h1.t2{font-weight:800;font-size:clamp(34px,6vw,60px)}
+h2{font-weight:800;font-size:22px}
+.lead{color:var(--ink);opacity:.8;font-size:19px}
+.stk{display:inline-block;margin-top:34px;background:var(--pop);color:#fff;font:700 13px "Fragment Mono",monospace;padding:6px 12px;border:2px solid var(--bd);border-radius:99px;transform:rotate(-3deg);box-shadow:3px 3px 0 var(--bd)}
+header{background:color-mix(in srgb,var(--bg) 85%,transparent);border-bottom:2px solid var(--bd)}
+.logo{font-size:24px;font-weight:800}.logo i{color:var(--pop)}
+[role=tablist]{background:var(--card);border:2px solid var(--bd);border-radius:99px;padding:4px;box-shadow:3px 3px 0 var(--bd)}
+[role=tab]{font-weight:700;color:var(--ink)}
+[role=tab][aria-selected=true]{background:var(--leaf);color:#fff}
+.card{border:2px solid var(--bd);border-radius:22px;box-shadow:6px 6px 0 var(--bd);background:var(--card)}
+.statbar .st{border:2px solid var(--bd);border-radius:18px;box-shadow:4px 4px 0 var(--bd)}
+.statbar .st:nth-child(1){background:var(--hi);color:#16112f}.statbar .st:nth-child(2){background:var(--amb);color:#16112f}.statbar .st:nth-child(3){background:var(--pop);color:#fff}.statbar .st:nth-child(4){background:var(--leaf);color:#fff}
+.statbar .st span{color:inherit;opacity:.85}.statbar .st b{font-family:"Bricolage Grotesque",sans-serif;font-size:34px;font-weight:800}
+button.b{border:2px solid var(--bd);border-radius:14px;box-shadow:3px 3px 0 var(--bd);font-weight:700;color:var(--ink);background:var(--card)}
+button.b:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--bd);border-color:var(--bd)}
+button.b:active:not(:disabled){transform:translate(3px,3px);box-shadow:0 0 0 var(--bd)}
+button.b.p{background:var(--leaf);color:#fff;border-color:var(--bd)}
+.seg{border:2px solid var(--bd);background:var(--card)}.seg button{color:var(--ink);font-weight:700}.seg button[aria-pressed=true]{background:var(--hi);color:#16112f;box-shadow:none;outline:2px solid var(--bd)}
+select{border:2px solid var(--bd);border-radius:12px;font-weight:600}
+canvas#mz,#hero{border:2px solid var(--bd);border-radius:18px}#hero{box-shadow:6px 6px 0 var(--bd)}
+.ticker{overflow:hidden;margin:6px 0 22px;border:2px solid var(--bd);border-radius:99px;background:var(--amb);color:#16112f;box-shadow:3px 3px 0 var(--bd);transform:rotate(-.6deg)}
+.ticker div{display:flex;width:max-content;animation:tk 28s linear infinite}
+.ticker span{padding:8px 22px;font:700 14px "Fragment Mono",monospace;white-space:nowrap}.ticker span:after{content:"✳";margin-left:44px}
+@keyframes tk{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker div{animation:none}}
+#bd{border:4px solid var(--bd);border-radius:16px;box-shadow:8px 8px 0 var(--bd)}
+.sq.mv:before{background:var(--pop)}.sq.mv.cap:before{border-color:var(--pop);background:none}
+#stat{border:2px solid var(--bd);box-shadow:3px 3px 0 var(--bd);font-weight:700}
+.bar{border:2px solid var(--bd);background:var(--card);height:14px}.bar>i{background:var(--leaf)}.mv-row .bar>i{background:var(--pop)}
+.note{border-left-color:var(--pop)}
+.cards .card b{color:var(--pop);font-family:"Bricolage Grotesque",sans-serif}
+#toast{border:2px solid var(--bd);background:var(--hi);color:#16112f;font-weight:700;box-shadow:3px 3px 0 var(--bd)}
+@media(max-width:700px){[role=tablist]{border:2px solid var(--bd);box-shadow:4px 4px 0 var(--bd)}h1{font-size:clamp(42px,14vw,72px)}.stk{margin-top:22px}}
+
+/* ---- palette v2: leaf, lime, amber ---- */
+:root{--bg:#f1f4e6;--card:#fffffa;--ink:#13190f;--mute:#566149;--line:#13190f22;--bd:#13190f;--leaf:#1b8f45;--amb:#ffb020;--pop:#ff5a36;--hi:#c6ff3d;--wall:#123020;--cor:#f3f7e4;--sqL:#eef3d4;--sqD:#6f9a4a}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c130b;--card:#162014;--ink:#f1f6e3;--mute:#9db08a;--line:#f1f6e322;--bd:#8fd16a;--leaf:#4fcf7a;--amb:#ffc04d;--pop:#ff7a58;--wall:#050a05;--cor:#223a22;--sqL:#d5e2b0;--sqD:#4f7a36}}
+.statbar .st:nth-child(4){background:var(--leaf);color:#fff}
+@media(prefers-color-scheme:dark){.statbar .st:nth-child(4){color:#0c130b}[role=tab][aria-selected=true],button.b.p{color:#0c130b}}
+[hidden]{display:none!important}input:focus-visible,textarea:focus-visible{outline:3px solid var(--amb)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><span class="logo">Ant<i>Lab</i></span>
+<div role="tablist" aria-label="Sections"><button role="tab" aria-selected="true" data-t="maze">mazes</button><button role="tab" aria-selected="false" data-t="chess">chess</button><button role="tab" aria-selected="false" data-t="method">receipts</button></div></div></header>
+<main class="wrap"><div class="row" style="margin-top:16px"><label>Experiment seed <input id="seed" type="number" min="0" max="4294967295" value="20261007" style="width:140px;padding:8px"></label><a href="report.html">Final training &amp; test report ↗</a></div>
+<div id="home"><span class="stk">search experiments · measured limits</span>
+<h1>ants. mazes. <em>receipts.</em></h1>
+<p class="lead">tiny agents, one pheromone trail, and numbers you can rerun. we also made them play chess. they're mid, and we measured that too.</p>
+
+<canvas id="hero" aria-hidden="true"></canvas></div>
+<div id="ttl" hidden><h1 class="t2" id="ttlH"></h1><p class="lead" id="ttlP"></p></div>
+
+<section class="tab on" id="t-maze">
+ <div class="statbar"><div class="st"><b id="rS">–</b><span>exact shortest</span></div><div class="st"><b id="rA">–</b><span>ants' best</span></div><div class="st"><b id="rX">–</b><span>extra steps</span></div><div class="st"><b id="rW">–</b><span>ants who made it</span></div></div>
+ <div class="grid"><div>
+  <div class="card"><canvas id="mz" role="img" aria-label="Maze with ant pheromone trails"></canvas>
+   <div class="leg"><span><i style="background:#2f7d32"></i>start</span><span><i style="background:#c0392b"></i>goal</span><span><i style="background:#e08a00;opacity:.6"></i>ant trail strength</span><span><i style="background:#2b6cff"></i>shortest route</span><span><i style="background:#fff;border:1px solid #888"></i>best ant route</span></div></div>
+ </div><div>
+  <div class="card"><h2>maze size</h2><div class="seg" id="szSeg" role="group" aria-label="Maze size"><button data-v="10" aria-pressed="false">10</button><button data-v="15" aria-pressed="true">15</button><button data-v="20" aria-pressed="false">20</button><button data-v="28" aria-pressed="false">28</button></div>
+   <select id="sz" hidden aria-hidden="true"><option value="10">10</option><option value="15" selected>15</option><option value="20">20</option><option value="28">28</option></select>
+   <div class="row" style="margin-top:12px"><button class="b" id="gen">new maze</button></div></div>
+  <div class="card"><h2>the run</h2><div class="row"><button class="b p" id="aco">send the ants</button><button class="b" id="bfs">show exact route</button><button class="b ghost" id="stopA" disabled>stop</button></div>
+   <div class="bar" style="margin-top:14px"><i id="pg"></i></div><div class="mono" id="pgT" style="font-size:12px;color:var(--mute);margin-top:6px">Ready.</div>
+   <div class="note">blue = the exact shortest route. white dashes = the best the ants found. amber glow = where the ants kept walking.</div></div>
+ </div></div>
+ <div class="card"><h2>maze comparison</h2><div class="row"><select id="kN" aria-label="Number of mazes"><option>3</option><option selected>5</option><option>10</option></select><span style="color:var(--mute)">seeded mazes at the selected size</span><button class="b p" id="cmp">run it back</button></div>
+  <div style="overflow-x:auto;margin-top:10px"><table><thead><tr><th>Maze</th><th>Shortest</th><th>Ants</th><th>Extra</th><th>Reached</th></tr></thead><tbody id="cb"><tr><td colspan="5" style="text-align:left;color:var(--mute)">No comparison run yet.</td></tr></tbody></table></div>
+  <div class="row" style="margin-top:10px"><span class="mono" id="cSum"></span><button class="b" id="csv" hidden>Copy CSV</button><textarea id="csvText" aria-label="Maze CSV for manual copy" readonly hidden style="width:100%;min-height:140px"></textarea></div>
+  <div class="note">Every maze gets the same ant budget (25 ants × 40 rounds). "Extra" is how much longer the ants' best route is than the true shortest.</div></div>
+</section>
+
+<section class="tab" id="t-chess">
+ <div class="grid"><div>
+  <div class="bwrap"><div id="bd" aria-label="Chess board"></div></div>
+  <div class="row" style="margin-top:12px"><button class="b" id="nw">new game</button><button class="b" id="un">undo</button><button class="b" id="pz">mate-in-1 puzzle</button><label class="row" style="gap:6px;font-size:14px"><input type="checkbox" id="auto" checked>ants reply</label></div>
+  <div id="stat" role="status" style="margin-top:12px">You play white.</div>
+ </div><div>
+  <div class="card"><h2>ants cooking</h2><div class="row"><select id="nA" aria-label="Ants per move"><option value="60">60 ants</option><option value="150" selected>150 ants</option><option value="400">400 ants</option></select><label style="font-size:14px"><input type="checkbox" id="useT"> Use trained ants</label></div>
+   <div class="row" style="margin-top:8px"><button class="b p" id="think">let them cook</button><button class="b" id="stopC" disabled>stop</button></div>
+   <div class="bar" style="margin-top:12px"><i id="cpg"></i></div><div id="moves" style="margin-top:8px"></div><div class="mono" id="line" style="font-size:13px;color:var(--mute)"></div>
+   <div class="note">scores compare candidate moves. they are not win odds.</div></div>
+  <div class="card"><h2>train the ants <span style="font-size:13px;font-weight:500;opacity:.7">(evolutionary settings search)</span></h2><p style="margin:0 0 8px;color:var(--mute);font-size:14px">A demo of the training loop: each generation mutates the ants' settings and plays a baseline player, and the best survive. It takes a few minutes. Four short games per candidate are a noisy training signal. Read the final report for a separate held-out evaluation.</p>
+   <div class="row"><select id="gN" aria-label="Generations"><option value="2">2 generations</option><option value="3" selected>3 generations</option><option value="4">4 generations</option></select><button class="b p" id="tr">train</button><button class="b" id="stopT" disabled>stop</button><button class="b" id="rst">reset</button><button class="b" id="loadFinal">load tested candidate</button></div>
+   <svg id="cv" viewBox="0 0 300 110" style="width:100%;height:auto;margin-top:10px" role="img" aria-label="Score by generation"></svg>
+   <div class="mono" id="tS" style="font-size:12px;color:var(--mute)">Not trained yet.</div>
+   <div class="row" style="margin-top:8px"><button class="b" id="val">validate vs untrained (6 games)</button></div><div class="mono" id="vS" style="font-size:12px;color:var(--mute);margin-top:6px"></div>
+   <div class="note">Scores are points per game against a greedy one-move player. Checkmate/draws use chess rules; unfinished games are adjudicated after 30 half-moves using a ±200 evaluation threshold. A handful of games is noisy, so treat small differences as luck, not proof.</div></div>
+ </div></div>
+</section>
+
+<section class="tab" id="t-method">
+ <div class="cards">
+  <div class="card"><b>Question</b>When do simple pheromone-guided agents find near-optimal routes, and can the same idea choose chess moves?</div>
+  <div class="card"><b>Mazes</b>Perfect mazes get extra loops. Ants walk with trail strength plus a distance-to-goal hint. Good routes deposit more. Trails fade each round. The baseline is a breadth-first search.</div>
+  <div class="card"><b>Chess</b>Each ant picks a first move by trail strength and a one-move evaluation, plays a short sampled line, and scores the end position. Moves with better lines gain trail. Before the ants run, every candidate is checked against immediate captures and mate-in-one replies. This does not prove that deeper threats or hung pieces are always avoided.</div>
+  <div class="card"><b>Training</b>A simple evolutionary loop mutates five settings and keeps the best by games won against a greedy baseline. Validation then plays trained ants against untrained ants. These are search agents, not language models or neural networks.</div>
+  <div class="card"><b>Limits</b>Games are short and few. Nonterminal positions are scored by material and centre control after 30 half-moves; these are adjudicated points, not actual game wins. The linked final report records training and held-out tests from this release; improvement is not assumed. The evaluation is material plus centre control only. This is a search experiment, not a strong engine. Mazes are simulated; no robot or real ants are measured here.</div>
+  <div class="card"><b>Reproduce</b>Everything runs client-side. The shared engine, experiment seeds, raw results and protocol are in the final report. Chess rules come from the open-source chess.js. Export the comparison table as CSV and rerun with more mazes to tighten the numbers.</div>
+ </div>
+</section>
+</main>
+<div id="toast" role="status"></div>
+
+<script src="engine.js"></script>
+<script>
+const $=id=>document.getElementById(id),sleep=()=>new Promise(r=>setTimeout(r,0));
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),1800)}
+document.querySelectorAll('[role=tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.t));const t=b.dataset.t;$('home').hidden=t!=='maze';$('ttl').hidden=t==='maze';if(t!=='maze'){$('ttlH').textContent=t==='chess'?'play the ants':'the receipts + the caveats';$('ttlP').textContent=t==='chess'?'go on, try to beat them. watch what they think about.':'what we tested, how, and what we did not prove.'}dispatchEvent(new Event('resize'));if(t==='maze')draw();scrollTo({top:0})});
+/* ---------- MAZE ---------- */
+let tick=0;
+function draw(){const cv=$('mz'),rc=cv.getBoundingClientRect(),dpr=devicePixelRatio||1,S=Math.max(200,Math.round(rc.width*dpr));
+ if(cv.width!==S){cv.width=S;cv.height=S}
+ const x=cv.getContext('2d'),u=S/W,cs=getComputedStyle(document.documentElement),wall=cs.getPropertyValue('--wall').trim(),cor=cs.getPropertyValue('--cor').trim();
+ const P=c=>[(2*(c%N)+1.5)*u,(2*(c/N|0)+1.5)*u];
+ x.clearRect(0,0,S,S);x.fillStyle=wall;x.fillRect(0,0,S,S);x.lineCap='round';x.lineJoin='round';
+ const segs=[];for(let c=0;c<N*N;c++){const cx=c%N,cy=c/N|0;for(const [a,b] of [[1,0],[0,1]]){const nx=cx+a,ny=cy+b;if(nx<N&&ny<N&&!G[(2*cy+1+b)*W+(2*cx+1+a)])segs.push([c,ny*N+nx])}}
+ x.strokeStyle=cor;x.lineWidth=u*.84;x.beginPath();for(let c=0;c<N*N;c++){const [px,py]=P(c);x.moveTo(px,py);x.lineTo(px,py)}segs.forEach(([a,b])=>{const A=P(a),B=P(b);x.moveTo(A[0],A[1]);x.lineTo(B[0],B[1])});x.stroke();
+ const mx=Math.max(...tau),lo=.1,den=Math.max(.001,mx-lo);x.lineWidth=u*.56;
+ segs.forEach(([a,b])=>{const v=((tau[a]+tau[b])/2-lo)/den;if(v>.03){x.strokeStyle=`rgba(224,138,0,${Math.min(.92,v)})`;const A=P(a),B=P(b);x.beginPath();x.moveTo(A[0],A[1]);x.lineTo(B[0],B[1]);x.stroke()}});
+ for(let c=0;c<N*N;c++){const v=(tau[c]-lo)/den;if(v>.03){const [px,py]=P(c);x.fillStyle=`rgba(224,138,0,${Math.min(.92,v)})`;x.beginPath();x.arc(px,py,u*.28,0,7);x.fill()}}
+ const line=(p,col,w,dash)=>{if(!p)return;x.save();x.strokeStyle=col;x.lineWidth=w*u;x.shadowColor=col;x.shadowBlur=u*.8;x.setLineDash(dash||[]);x.lineDashOffset=-tick*.5*dpr;x.beginPath();p.forEach((c,i)=>{const [px,py]=P(c);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke();x.restore()};
+ line(sp,'#3b82ff',.3);line(best,'#ffffff',.14,[u*.45,u*.45]);
+ if(best&&best.length>1)for(let k=0;k<6;k++){const f=(tick*.12+k*best.length/6)%(best.length-1),i=Math.floor(f),t=f-i,A=P(best[i]),B=P(best[i+1]),px=A[0]+(B[0]-A[0])*t,py=A[1]+(B[1]-A[1])*t;
+  x.fillStyle='#17120d';x.strokeStyle='#fff';x.lineWidth=u*.08;x.beginPath();x.arc(px,py,u*.26,0,7);x.fill();x.stroke();x.beginPath();x.arc(px+(B[0]-A[0])*.06,py+(B[1]-A[1])*.06,u*.14,0,7);x.fill()}
+ const pin=(c,col,t)=>{const [px,py]=P(c);x.save();x.shadowColor=col;x.shadowBlur=u;x.fillStyle=col;x.beginPath();x.arc(px,py,u*.42,0,7);x.fill();x.restore();x.fillStyle='#fff';x.font=`700 ${u*.55}px sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(t,px,py+u*.03)};
+ pin(0,'#2f9e44','S');pin(N*N-1,'#d6403a','G')}
+(function loop(){tick++;if(tick%2===0&&$('t-maze').classList.contains('on')&&(sp||best))draw();requestAnimationFrame(loop)})();
+/* hero: ants laying a trail */
+(function(){const cv=$('hero'),x=cv.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;let w,h,ants=[],trail=[];
+ function size(){const d=devicePixelRatio||1,r=cv.getBoundingClientRect();w=cv.width=Math.round(r.width*d);h=cv.height=Math.round(r.height*d);ants=Array.from({length:26},(_,i)=>({t:Math.random()*w,v:(.8+Math.random()*.9)*d,o:(Math.random()-.5)*h*.12,k:i}))}
+ const py=(t,o)=>h/2+Math.sin(t*.011)*h*.24+Math.sin(t*.027)*h*.07+o;
+ function frame(){x.clearRect(0,0,w,h);const d=devicePixelRatio||1;
+  for(let i=trail.length-1;i>=0;i--){const p=trail[i];p.a-=.0035;if(p.a<=0){trail.splice(i,1);continue}x.fillStyle=`rgba(255,180,61,${p.a*.55})`;x.beginPath();x.arc(p.x,p.y,3.2*d,0,7);x.fill()}
+  ants.forEach(a=>{a.t+=reduce?0:a.v;if(a.t>w+40){a.t=-20;a.o=(Math.random()-.5)*h*.12}const X=a.t,Y=py(X,a.o);if(X>0&&a.k%2===0)trail.push({x:X,y:Y,a:1});
+   const ang=Math.atan2(py(X+3,a.o)-Y,3);x.save();x.translate(X,Y);x.rotate(ang);x.fillStyle='#e7f5d8';x.beginPath();x.ellipse(-5*d,0,4.2*d,2.8*d,0,0,7);x.ellipse(0,0,3*d,2.2*d,0,0,7);x.ellipse(5*d,0,3.2*d,2.6*d,0,0,7);x.fill();
+   x.strokeStyle='#e7f5d8';x.lineWidth=d;x.beginPath();for(const lx of[-3,0,3]){x.moveTo(lx*d,0);x.lineTo(lx*d-2*d,-5*d+Math.sin(a.t*.3+lx)*d);x.moveTo(lx*d,0);x.lineTo(lx*d-2*d,5*d-Math.sin(a.t*.3+lx)*d)}x.stroke();x.restore()});
+  if(trail.length>1800)trail.splice(0,trail.length-1800);if(!reduce)requestAnimationFrame(frame)}
+ size();addEventListener('resize',size);if(reduce){for(let i=0;i<260;i++){ants.forEach(a=>{a.t+=a.v*3})}}frame()})();
+function setR(){const s=sp?sp.length-1:null,a=best?best.length-1:null;$('rS').textContent=s??'–';$('rA').textContent=a??'–';$('rX').textContent=s!=null&&a!=null?'+'+(a-s):'–'}
+function newMaze(){if(run||busy){toast('Stop the current run first');return}seedRandom(+$('seed').value);gen(+$('sz').value);setR();$('rW').textContent='–';$('pg').style.width='0';$('pgT').textContent='Ready.';draw()}
+$('gen').onclick=()=>{if(run||busy)return;$('seed').value=(+$('seed').value+1)>>>0;newMaze()};$('seed').onchange=newMaze;$('sz').onchange=newMaze;
+$('bfs').onclick=()=>{sp=bfs();setR();draw()};
+$('stopA').onclick=()=>stopA=true;
+$('aco').onclick=async()=>{if(run||busy)return;seedRandom(+$('seed').value+1);run=true;stopA=false;tau.fill(.1);best=null;sp=sp||bfs();mazeLock(true);$('stopA').disabled=false;
+ let ok=0,tot=0,it=40;for(let i=0;i<it&&!stopA;i++){const r=round(25,.12,N*N*3);ok+=r.reached;tot+=25;if(r.bp&&(!best||r.bp.length<best.length))best=r.bp;
+  $('pg').style.width=((i+1)/it*100)+'%';$('pgT').textContent=`Round ${i+1} of ${it}`;setR();$('rW').textContent=Math.round(ok/tot*100)+'%';draw();await new Promise(r=>requestAnimationFrame(r))}
+ $('pgT').textContent=stopA?'Stopped.':'Done.';run=false;mazeLock(false);$('stopA').disabled=true};
+let csvT='';
+$('cmp').onclick=async()=>{if(run||busy)return;run=true;stopA=false;seedRandom(+$('seed').value);mazeLock(true);$('stopA').disabled=false;const k=+$('kN').value,n=+$('sz').value,rows=[];$('cmp').disabled=true;const sv=[N,W,G,tau,sp,best];
+ for(let i=0;i<k&&!stopA;i++){gen(n);const s=bfs().length-1;let b=null,ok=0;for(let j=0;j<40&&!stopA;j++){const r=round(25,.12,N*N*3);ok+=r.reached;if(r.bp&&(!b||r.bp.length<b.length))b=r.bp}
+  if(stopA)break;rows.push({i:i+1,s,a:b?b.length-1:null,ok:Math.round(ok/10)});$('cb').innerHTML=rows.map(r=>`<tr><td>#${r.i}</td><td>${r.s}</td><td>${r.a??'none'}</td><td>${r.a!=null?'+'+(r.a-r.s):'–'}</td><td>${r.ok}%</td></tr>`).join('');await sleep()}
+ [N,W,G,tau,sp,best]=sv;const completed=rows.length;const f=rows.filter(r=>r.a!=null),m=f.length?f.reduce((x,r)=>x+(r.a-r.s)/r.s,0)/f.length*100:0;
+ $('cSum').textContent=`${f.length?`Solved-maze mean: ${m.toFixed(1)}% extra steps`:'No mazes solved'} · ${f.length}/${completed} completed mazes solved${stopA?' · stopped':''}`;csvT='run_seed,maze,size,shortest,ant_best,extra,goal_rate_pct\n'+rows.map(r=>[+$('seed').value,r.i,n,r.s,r.a??'',r.a!=null?r.a-r.s:'',r.ok].join(',')).join('\n');$('csv').hidden=!rows.length;run=false;mazeLock(false);$('stopA').disabled=true;draw()};
+$('csv').onclick=async()=>{try{await navigator.clipboard.writeText(csvT);toast('CSV copied')}catch(e){$('csvText').hidden=false;$('csvText').value=csvT;$('csvText').focus();$('csvText').select();toast('CSV selected below. Copy it manually.')}};
+addEventListener('resize',()=>{clearTimeout(addEventListener.h);addEventListener.h=setTimeout(draw,120)});
+/* ---------- CHESS ---------- */
+const GL={p:'♟\uFE0E',n:'♞',b:'♝',r:'♜',q:'♛',k:'♚'};
+/* Shared engine loaded above; offline tests use the same file. */
+/* board UI */
+let game=new Chess(),sel=null,busy=false,stopC=false,memoryBest=null;
+function render(){const b=$('bd');b.innerHTML='';const bd=game.board(),h=game.history({verbose:true}),lm=h[h.length-1],tg=sel?game.moves({square:sel,verbose:true}).map(m=>m.to):[];
+ for(let r=0;r<8;r++)for(let c=0;c<8;c++){const sq='abcdefgh'[c]+(8-r),p=bd[r][c],e=document.createElement('button');
+  e.className='sq '+((r+c)%2?'d':'l')+(p?(p.color==='w'?' w':' k'):'')+(sel===sq?' sel':'')+(lm&&(lm.from===sq||lm.to===sq)?' last':'')+(tg.includes(sq)?' mv':'');
+  if(p){const sp=document.createElement('span');sp.className='g';sp.textContent=GL[p.type];e.append(sp)}if(c===0){const q=document.createElement('i');q.className='co rk';q.textContent=8-r;e.append(q)}if(r===7){const q=document.createElement('i');q.className='co f';q.textContent='abcdefgh'[c];e.append(q)}if(tg.includes(sq)&&p)e.className+=' cap';e.setAttribute('aria-label',sq+(p?' '+(p.color==='w'?'white ':'black ')+p.type:''));e.dataset.sq=sq;b.append(e)}
+ let s=game.in_checkmate()?(game.turn()==='w'?'checkmate. the ants ate.':'checkmate. you won, respect.'):game.in_draw()?'draw. nobody wins.':(game.turn()==='w'?'your move (white).':'black to move. press let them cook.')+(game.in_check()?' Check.':'');
+ $('stat').textContent=s;$('stat').className=game.game_over()?'end':''}
+function lockUI(v){busy=v;mazeLock(v);['think','nw','un','pz','rst','loadFinal','nA','gN','useT','seed'].forEach(i=>$(i).disabled=v);$('stopC').disabled=!v}
+$('bd').onclick=async e=>{const t=e.target.closest('.sq');if(!t||busy||game.game_over())return;const sq=t.dataset.sq,p=game.get(sq);
+ if(sel&&game.moves({square:sel,verbose:true}).some(m=>m.to===sq)){game.move({from:sel,to:sq,promotion:'q'});sel=null;render();if($('auto').checked&&!game.game_over())antMove();return}
+ sel=p&&p.color===game.turn()&&game.turn()==='w'?sq:null;render()};
+function params(){try{const s=JSON.parse(localStorage.getItem('antlab.best')||'null');if($('useT').checked&&validParams(s))return s;if($('useT').checked&&validParams(memoryBest))return memoryBest}catch(e){if($('useT').checked&&validParams(memoryBest))return memoryBest}return DEF}
+async function antMove(){if(busy||run||game.game_over())return;seedRandom(+$('seed').value+game.history().length);lockUI(true);$('stat').textContent='ants are searching…';stopC=false;const n=+$('nA').value;
+ const r=await think(game,params(),n,(k,R)=>{$('cpg').style.width=(k/n*100)+'%';show(R)},()=>stopC,sleep);
+ $('cpg').style.width='100%';if(r&&!stopC){show(r.R);$('line').textContent='Best ant line: '+r.best.line.join(' ');game.move(r.best.m.san);toast(r.mate?'ants found mate':'ants played '+r.best.m.san)}lockUI(false);render()}
+function show(R){const t=[...R].filter(x=>x.n||x.eta===99).sort((a,b)=>(b.sum/(b.n||1))-(a.sum/(a.n||1))).slice(0,4);
+ $('moves').innerHTML=t.map(r=>{const s=r.n?r.sum/r.n:1;return`<div class="mv-row"><b class="mono">${r.m.san}</b><div class="bar"><i style="width:${Math.round(s*100)}%"></i></div><span class="mono">${r.n} ants</span></div>`}).join('')}
+$('think').onclick=antMove;$('stopC').onclick=()=>stopC=true;
+$('nw').onclick=()=>{game=new Chess();sel=null;$('cpg').style.width='0';$('moves').innerHTML='';$('line').textContent='';render()};
+$('un').onclick=()=>{game.undo();if(game.turn()==='b')game.undo();sel=null;render()};
+$('pz').onclick=()=>{game=new Chess('6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1');sel=null;$('moves').innerHTML='';$('line').textContent='White to move: find the mate.';render()};
+/* training */
+let stopT=false,hist=[];
+function curve(){const pts=hist.map((v,i)=>[20+i*(260/Math.max(1,hist.length-1||1)),95-v*80]);
+ $('cv').innerHTML=`<line x1="20" y1="15" x2="20" y2="95" stroke="var(--line)"/><line x1="20" y1="95" x2="290" y2="95" stroke="var(--line)"/><line x1="20" y1="55" x2="290" y2="55" stroke="var(--line)" stroke-dasharray="3"/><text x="2" y="18" font-size="9" fill="var(--mute)">1</text><text x="2" y="58" font-size="9" fill="var(--mute)">.5</text><text x="2" y="98" font-size="9" fill="var(--mute)">0</text>`+(pts.length?`<polyline fill="none" stroke="var(--leaf)" stroke-width="2.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>`+pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--amb)"/>`).join(''):'')}
+async function score(P,games,stop){let pts=0,n=0;for(let i=0;i<games;i++){const aw=i%2===0,a=antF(P,16,sleep),gr=async g=>greedy(g);const r=await playGame(aw?a:gr,aw?gr:a,30,stop,sleep);if(r==null)return null;pts+=aw?r:1-r;n++;$('tS').textContent=$('tS').dataset.h+` game ${n}/${games}`}return pts/n}
+$('stopT').onclick=()=>stopT=true;
+$('tr').onclick=async()=>{if(busy||run)return;seedRandom(+$('seed').value);lockUI(true);$('tr').disabled=$('val').disabled=true;$('stopC').disabled=true;$('stopT').disabled=false;stopT=false;hist=[];curve();let cur={...DEF};const G=+$('gN').value;
+ for(let g=0;g<G&&!stopT;g++){const cand=g===0?[cur,mut(cur),mut(cur)]:[cur,mut(cur),mut(cur)];let bs=-1,bp=cur;
+  for(let c=0;c<cand.length&&!stopT;c++){$('tS').dataset.h=`Gen ${g+1}/${G}, candidate ${c+1}/3:`;const s=await score(cand[c],4,()=>stopT);if(s==null)break;if(s>bs+1e-9){bs=s;bp=cand[c]}}
+  if(bs<0)break;cur=bp;hist.push(bs);curve()}
+ if(hist.length&&!stopT){memoryBest={...cur};try{localStorage.setItem('antlab.best',JSON.stringify(cur))}catch(e){}$('tS').textContent=`Best settings (score ${hist[hist.length-1].toFixed(2)} vs greedy, ${4} games): ants-trail ${cur.a.toFixed(2)}, hint ${cur.b.toFixed(1)}, fade ${cur.rho.toFixed(2)}, depth ${cur.D}, sampling ${cur.T}`;$('useT').checked=true;toast('Training done')}else $('tS').textContent='Training stopped. No new settings were saved.';
+ lockUI(false);$('tr').disabled=$('val').disabled=false;$('stopT').disabled=true};
+$('rst').onclick=()=>{memoryBest=null;try{localStorage.removeItem('antlab.best')}catch(e){}hist=[];curve();$('useT').checked=false;$('tS').textContent='Not trained yet.';$('vS').textContent=''};
+$('val').onclick=async()=>{let P=memoryBest;try{P=JSON.parse(localStorage.getItem('antlab.best')||'null')||memoryBest}catch(e){}if(!validParams(P)){toast('Train first');return}
+ if(busy||run)return;seedRandom(+$('seed').value+100000);lockUI(true);$('tr').disabled=$('val').disabled=true;$('stopC').disabled=true;stopT=false;$('stopT').disabled=false;let w=0,d=0,l=0;
+ for(let i=0;i<6&&!stopT;i++){const tw=i%2===0,a=antF(P,16,sleep),b=antF(DEF,16,sleep);const r=await playGame(tw?a:b,tw?b:a,30,()=>stopT,sleep);if(r==null)break;const s=tw?r:1-r;s===1?w++:s===0?l++:d++;$('vS').textContent=`Trained vs default (adjudicated points): ${w}W ${d}D ${l}L (${i+1}/6)`}
+ $('vS').textContent+=' · Too few games to claim an improvement.';lockUI(false);$('tr').disabled=$('val').disabled=false;$('stopT').disabled=true};
+$('loadFinal').onclick=async()=>{if(busy||run)return;try{const r=await fetch('trained-settings.json');if(!r.ok)throw Error('Candidate file unavailable');const d=await r.json();if(!validParams(d.parameters))throw Error('Invalid parameters');memoryBest={...d.parameters};try{localStorage.setItem('antlab.best',JSON.stringify(d.parameters))}catch(e){}$('useT').checked=true;$('tS').textContent='Loaded the frozen offline candidate. Read the report for its held-out results; loading does not certify an improvement.';toast('Tested candidate loaded')}catch(e){toast(e.message)}};
+$('stopC').disabled=true;
+document.querySelectorAll('#szSeg button').forEach(b=>b.onclick=()=>{$('sz').value=b.dataset.v;document.querySelectorAll('#szSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));newMaze()});
+function mazeLock(v){['gen','aco','bfs','cmp','sz','kN','seed','think','nw','un','pz','tr','val','rst','loadFinal','gN','nA','useT'].forEach(id=>$(id).disabled=v);document.querySelectorAll('#szSeg button').forEach(b=>b.disabled=v)}
+newMaze();render();curve();
+const sectionTabs=[...document.querySelectorAll('[role=tab]')];
+sectionTabs.forEach((b,i)=>{b.id='tab-'+b.dataset.t;b.setAttribute('aria-controls','t-'+b.dataset.t);const panel=$('t-'+b.dataset.t);panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',b.id);const original=b.onclick;b.onclick=()=>{original();sectionTabs.forEach(t=>t.tabIndex=t===b?0:-1);if(location.hash!=='#'+b.dataset.t)location.hash=b.dataset.t};b.onkeydown=e=>{let n;if(e.key==='ArrowRight')n=(i+1)%3;if(e.key==='ArrowLeft')n=(i+2)%3;if(e.key==='Home')n=0;if(e.key==='End')n=2;if(n!==undefined){e.preventDefault();sectionTabs[n].click();sectionTabs[n].focus();}};b.tabIndex=i===0?0:-1;});
+function restoreSection(){const b=sectionTabs.find(t=>t.dataset.t===location.hash.slice(1));if(b&&b.getAttribute('aria-selected')!=='true')b.onclick();}
+addEventListener('hashchange',restoreSection);restoreSection();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1801 @@
+{
+  "protocol": {
+    "started_utc": "2026-10-07T09:21:23.362Z",
+    "seed": 20261007,
+    "training": {
+      "generations": 4,
+      "candidates_per_generation": 3,
+      "games_per_candidate": 4,
+      "ants_per_move": 16,
+      "max_plies": 30,
+      "match_seeds": [
+        31000,
+        31001,
+        31002,
+        31003
+      ]
+    },
+    "validation": {
+      "pairs": 12,
+      "games": 24,
+      "seeds_start": 91000,
+      "ants_per_move": 16,
+      "max_plies": 30,
+      "colour_swapped": true
+    },
+    "maze": {
+      "sizes": [
+        10,
+        15,
+        20,
+        28
+      ],
+      "seeds_per_size": 10,
+      "ants": 25,
+      "rounds": 40,
+      "step_cap": "3 * size * size"
+    },
+    "scope": "Simulated search agents; evolutionary hyperparameter search, not neural-network or language-model training.",
+    "finished_utc": "2026-10-07T10:12:57.663Z",
+    "node_version": "v24.19.0",
+    "source_sha256": {
+      "engine.js": "a48c9dddb20de132445a6a071505594638e9ddf33a532dde0c6d716fcea45378",
+      "chess.min.js": "7aa430df2b9311849040851adef30c4de49f6c8cefdb80645a4262f1f95c445f",
+      "experiment.cjs": "53d474b39fc8ffc48439ad34b4a3c6afacb223c5b841df413a22c70f4e4911bc"
+    }
+  },
+  "training": [
+    {
+      "generation": 1,
+      "candidate": 0,
+      "parameters": {
+        "a": 1,
+        "b": 3,
+        "rho": 0.08,
+        "D": 4,
+        "T": 3
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1714,
+          "pgn": "1. Nc3 Nc6 2. e4 Nf6 3. Na4 Nxe4 4. c3 Nxc3 5. dxc3 d5 6. f4 Be6 7. b3 Qd6 8. Bb2 Qxf4 9. g4 Qxf1+ 10. Kxf1 Bxg4 11. Qxg4 e5 12. Ne2 Bc5 13. Nxc5 f6 14. Qxg7 Nd4 15. Qxh8+ Kf7",
+          "fen": "r6Q/ppp2k1p/5p2/2Npp3/3n4/1PP5/PB2N2P/R4K1R w - - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1302,
+          "pgn": "1. Nc3 h6 2. Nf3 f5 3. e4 fxe4 4. Nxe4 d5 5. Bd3 dxe4 6. Bxe4 Be6 7. Bxb7 Bf7 8. Bxa8 Bg6 9. Bd5 Qxd5 10. d4 Na6 11. Bxh6 Rxh6 12. Qd3 Bxd3 13. cxd3 Qb7 14. Ne5 Qxg2 15. f3 Qxh1+",
+          "fen": "4kbn1/p1p1p1p1/n6r/4N3/3P4/3P1P2/PP5P/R3K2q w Q - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1672,
+          "pgn": "1. Nf3 e5 2. Nxe5 Nf6 3. e3 Bc5 4. Be2 Bxe3 5. dxe3 Nc6 6. Nd3 d5 7. Nc3 Bf5 8. Nxd5 Qxd5 9. Bf1 Bxd3 10. cxd3 Qxd3 11. Qxd3 Ne5 12. Qd2 Nd5 13. Qxd5 c6 14. Qxe5+ Kd7 15. Qxg7 Ke6",
+          "fen": "r6r/pp3pQp/2p1k3/8/8/4P3/PP3PPP/R1B1KB1R w KQ - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1440,
+          "pgn": "1. Nf3 Nf6 2. d4 b5 3. Qd3 b4 4. Qxh7 Rxh7 5. Nc3 bxc3 6. bxc3 Ba6 7. Be3 e6 8. Ne5 Rh5 9. Nxf7 Kxf7 10. f3 Bc4 11. O-O-O Ke8 12. Re1 Bxa2 13. h4 d6 14. c4 Bxc4 15. c3 Qd7",
+          "fen": "rn2kb2/p1pq2p1/3ppn2/7r/2bP3P/2P1BP2/4P1P1/2K1RB1R w - - 1 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 1,
+      "candidate": 1,
+      "parameters": {
+        "a": 1.2772410364355893,
+        "b": 2.774347742088139,
+        "rho": 0.02617243779823184,
+        "D": 5,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2846,
+          "pgn": "1. d4 e5 2. dxe5 Nc6 3. a3 Nxe5 4. Qd4 Bxa3 5. bxa3 Nf6 6. Qxe5+ Qe7 7. Qg5 Qxe2+ 8. Kxe2 d5 9. Qxg7 Be6 10. Qxh8+ Kd7 11. Qxa8 Ne4 12. Qxb7 Nxf2 13. Kxf2 f6 14. Qxa7 h5 15. Qd4 c5",
+          "fen": "8/3k4/4bp2/2pp3p/3Q4/P7/2P2KPP/RNB2BNR w - c6 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1894,
+          "pgn": "1. Nc3 Nf6 2. Nf3 Nc6 3. e4 Rb8 4. Bc4 Na5 5. Bxf7+ Kxf7 6. d4 Ke8 7. Bf4 Nc6 8. Bxc7 Qxc7 9. Qd3 Na5 10. Ne5 d6 11. f3 dxe5 12. dxe5 Qxe5 13. Qd4 Qxd4 14. Nd5 Nd7 15. Nxe7 Bxe7",
+          "fen": "1rb1k2r/pp1nb1pp/8/n7/3qP3/5P2/PPP3PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2118,
+          "pgn": "1. d4 e5 2. f3 exd4 3. Qd3 Nf6 4. Qb5 Bc5 5. Qxc5 d5 6. Qxd4 Bf5 7. Qe5+ Qe7 8. Qxf5 Qxe2+ 9. Nxe2 Nc6 10. Nf4 Nd4 11. Qe5+ Kd7 12. Qxd4 c6 13. g3 Ne4 14. fxe4 f6 15. Nd2 b6",
+          "fen": "r6r/p2k2pp/1pp2p2/3p4/3QPN2/6P1/PPPN3P/R1B1KB1R w KQ - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -2500,
+          "pgn": "1. Nf3 h6 2. e4 Nc6 3. Bc4 Nf6 4. Bxf7+ Kxf7 5. d4 Nxe4 6. Bxh6 Rxh6 7. Qd3 Nd6 8. Nc3 Ne8 9. Qe4 Nb4 10. Qxb7 Bxb7 11. Ne5+ Kg8 12. Nxd7 Qxd7 13. Ne4 Bxe4 14. f3 Nxc2+ 15. Ke2 Nxa1",
+          "fen": "r3nbk1/p1pqp1p1/7r/8/3Pb3/5P2/PP2K1PP/n6R w - - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 1,
+      "candidate": 2,
+      "parameters": {
+        "a": 0.8054958025924861,
+        "b": 3.921282641356811,
+        "rho": 0.025430981041863567,
+        "D": 5,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 762,
+          "pgn": "1. a3 e5 2. a4 Nc6 3. Nh3 d5 4. Ng1 Be6 5. f3 Bd6 6. Nc3 Nf6 7. d3 Qd7 8. Qd2 Ne4 9. dxe4 dxe4 10. Nxe4 Nd4 11. Nxd6+ Qxd6 12. h3 Nxf3+ 13. exf3 Qxd2+ 14. Kxd2 Bxh3 15. Nxh3 f5",
+          "fen": "r3k2r/ppp3pp/8/4pp2/P7/5P1N/1PPK2P1/R1B2B1R w kq f6 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -2382,
+          "pgn": "1. Nc3 g5 2. Nf3 g4 3. e4 gxf3 4. Qxf3 Nh6 5. Qxf7+ Nxf7 6. Bd3 Bg7 7. f3 a5 8. Nd5 Kf8 9. Nxc7 Qxc7 10. c4 Rg8 11. h4 Qc6 12. O-O Qd6 13. b3 Bxa1 14. Bb2 Bxb2 15. Kf2 Qxd3",
+          "fen": "rnb2kr1/1p1ppn1p/8/p7/2P1P2P/1P1q1P2/Pb1P1KP1/5R2 w - - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1538,
+          "pgn": "1. d4 e5 2. dxe5 Bc5 3. Nh3 Bxf2+ 4. Kxf2 d5 5. Nf4 Nf6 6. exf6 Qxf6 7. Kg3 Qxf4+ 8. Bxf4 Nc6 9. Bxc7 Be6 10. a3 Ne5 11. Bxe5 f6 12. Bd4 Rd8 13. Bxa7 Bf5 14. Qd4 Bxc2 15. Nc3 Be4",
+          "fen": "3rk2r/Bp4pp/5p2/3p4/3Qb3/P1N3K1/1P2P1PP/R4B1R w k - 2 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1804,
+          "pgn": "1. Nf3 h6 2. e4 Nc6 3. Bc4 d5 4. Bxd5 Nb4 5. Bxb7 Bxb7 6. d4 Bxe4 7. Bxh6 Rxh6 8. Nc3 Bb7 9. Qd3 Nxd3+ 10. cxd3 Kd7 11. Ne5+ Ke8 12. Nxf7 Kxf7 13. Ne4 Qxd4 14. f4 Qxd3 15. b4 Bxe4",
+          "fen": "r4bn1/p1p1pkp1/7r/8/1P2bP2/3q4/P5PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 2,
+      "candidate": 0,
+      "parameters": {
+        "a": 1,
+        "b": 3,
+        "rho": 0.08,
+        "D": 4,
+        "T": 3
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1714,
+          "pgn": "1. Nc3 Nc6 2. e4 Nf6 3. Na4 Nxe4 4. c3 Nxc3 5. dxc3 d5 6. f4 Be6 7. b3 Qd6 8. Bb2 Qxf4 9. g4 Qxf1+ 10. Kxf1 Bxg4 11. Qxg4 e5 12. Ne2 Bc5 13. Nxc5 f6 14. Qxg7 Nd4 15. Qxh8+ Kf7",
+          "fen": "r6Q/ppp2k1p/5p2/2Npp3/3n4/1PP5/PB2N2P/R4K1R w - - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1302,
+          "pgn": "1. Nc3 h6 2. Nf3 f5 3. e4 fxe4 4. Nxe4 d5 5. Bd3 dxe4 6. Bxe4 Be6 7. Bxb7 Bf7 8. Bxa8 Bg6 9. Bd5 Qxd5 10. d4 Na6 11. Bxh6 Rxh6 12. Qd3 Bxd3 13. cxd3 Qb7 14. Ne5 Qxg2 15. f3 Qxh1+",
+          "fen": "4kbn1/p1p1p1p1/n6r/4N3/3P4/3P1P2/PP5P/R3K2q w Q - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1672,
+          "pgn": "1. Nf3 e5 2. Nxe5 Nf6 3. e3 Bc5 4. Be2 Bxe3 5. dxe3 Nc6 6. Nd3 d5 7. Nc3 Bf5 8. Nxd5 Qxd5 9. Bf1 Bxd3 10. cxd3 Qxd3 11. Qxd3 Ne5 12. Qd2 Nd5 13. Qxd5 c6 14. Qxe5+ Kd7 15. Qxg7 Ke6",
+          "fen": "r6r/pp3pQp/2p1k3/8/8/4P3/PP3PPP/R1B1KB1R w KQ - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1440,
+          "pgn": "1. Nf3 Nf6 2. d4 b5 3. Qd3 b4 4. Qxh7 Rxh7 5. Nc3 bxc3 6. bxc3 Ba6 7. Be3 e6 8. Ne5 Rh5 9. Nxf7 Kxf7 10. f3 Bc4 11. O-O-O Ke8 12. Re1 Bxa2 13. h4 d6 14. c4 Bxc4 15. c3 Qd7",
+          "fen": "rn2kb2/p1pq2p1/3ppn2/7r/2bP3P/2P1BP2/4P1P1/2K1RB1R w - - 1 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 2,
+      "candidate": 1,
+      "parameters": {
+        "a": 1.2644048703368753,
+        "b": 2.9987788600847125,
+        "rho": 0.023717662924900657,
+        "D": 2,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1046,
+          "pgn": "1. d4 Nc6 2. d5 e5 3. dxc6 dxc6 4. Qxd8+ Kxd8 5. e4 Nf6 6. Bg5 Bd6 7. c4 Bf5 8. exf5 Rf8 9. a4 Rh8 10. Nc3 Rg8 11. Bxf6+ gxf6 12. h3 Rxg2 13. Bxg2 e4 14. Bxe4 Be5 15. O-O-O+ Kc8",
+          "fen": "r1k5/ppp2p1p/2p2p2/4bP2/P1P1B3/2N4P/1P3P2/2KR2NR w - - 3 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1746,
+          "pgn": "1. Nc3 Nc6 2. d4 Nf6 3. e4 Ng8 4. Bd3 Nxd4 5. Bf4 a5 6. Bxc7 Qxc7 7. Nf3 Ne6 8. Ne5 Qxe5 9. Qf3 Ng5 10. Qxf7+ Nxf7 11. f4 Qxf4 12. Nd5 Qh4+ 13. g3 Qh5 14. Nxe7 Bxe7 15. c4 a4",
+          "fen": "r1b1k1nr/1p1pbnpp/8/7q/p1P1P3/3B2P1/PP5P/R3K2R w KQkq - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2698,
+          "pgn": "1. Nc3 d5 2. d4 Nf6 3. e3 e5 4. dxe5 Nc6 5. exf6 Qxf6 6. Nxd5 Qxf2+ 7. Kxf2 Be6 8. Nxc7+ Ke7 9. Nxa8 Bxa2 10. Rxa2 Nd4 11. exd4 f6 12. Rxa7 Ke6 13. Rxb7 Bc5 14. dxc5 Rxa8 15. Rxg7 Ra3",
+          "fen": "8/6Rp/4kp2/2P5/8/r7/1PP2KPP/2BQ1BNR w - - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1674,
+          "pgn": "1. Nf3 Nc6 2. d4 Rb8 3. Nc3 a5 4. Bf4 h6 5. Bxc7 Qxc7 6. Qd3 Qd6 7. e4 f6 8. Nd5 e6 9. Nxf6+ Nxf6 10. c3 Qe7 11. Ne5 Nxe5 12. dxe5 Ng4 13. Qxd7+ Bxd7 14. Bd3 Nxe5 15. f4 Nxd3+",
+          "fen": "1r2kb1r/1p1bq1p1/4p2p/p7/4PP2/2Pn4/PP4PP/R3K2R w KQk - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 2,
+      "candidate": 2,
+      "parameters": {
+        "a": 0.885019488632679,
+        "b": 2.601431287592277,
+        "rho": 0.12805712779983877,
+        "D": 5,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1542,
+          "pgn": "1. a3 e5 2. a4 Nc6 3. Nh3 d5 4. Nf4 exf4 5. e3 fxe3 6. dxe3 Bc5 7. Qd3 Bxe3 8. Bxe3 Qf6 9. Ra3 Qxf2+ 10. Bxf2 Nf6 11. Be3 Bf5 12. Qxf5 Ne5 13. Qxe5+ Kf8 14. Qxc7 Ne4 15. Qxb7 f5",
+          "fen": "r4k1r/pQ4pp/8/3p1p2/P3n3/R3B3/1PP3PP/1N2KB1R w K f6 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1800,
+          "pgn": "1. Nc3 Nc6 2. Nf3 d6 3. e4 Qd7 4. Bc4 a6 5. Bxf7+ Kxf7 6. d4 e6 7. Bf4 b5 8. Bxd6 Bxd6 9. Nxb5 axb5 10. Qd3 Nce7 11. Qxb5 Qxb5 12. c4 Qxc4 13. Ne5+ Bxe5 14. dxe5 Qxe4+ 15. Kd1 Qxe5",
+          "fen": "r1b3nr/2p1nkpp/4p3/4q3/8/8/PP3PPP/R2K3R w - - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "checkmate",
+          "plies": 25,
+          "final_eval_white": 444,
+          "pgn": "1. d4 e5 2. f3 exd4 3. Bf4 Nf6 4. Qxd4 d5 5. Nc3 Bc5 6. Qxc5 Bf5 7. g4 Nxg4 8. fxg4 Bxg4 9. Qa3 Bxe2 10. Bxe2 Qf6 11. Bb5+ Nc6 12. Nxd5 Qxf4 13. Qe7#",
+          "fen": "r3k2r/ppp1Qppp/2n5/1B1N4/5q2/8/PPP4P/R3K1NR b KQkq - 1 13",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -2398,
+          "pgn": "1. Nf3 h6 2. e4 Nc6 3. Bc4 Nf6 4. Bxf7+ Kxf7 5. d4 Nxe4 6. Bxh6 Rxh6 7. Qd3 Nd6 8. Nc3 Nb4 9. Qe4 Nxe4 10. Nxe4 Nxc2+ 11. Kd1 Nxa1 12. Ne5+ Ke8 13. Nxd7 Qxd7 14. f4 Qxd4+ 15. Ke2 Qxe4+",
+          "fen": "r1b1kb2/ppp1p1p1/7r/8/4qP2/8/PP2K1PP/n6R w - - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 3,
+      "candidate": 0,
+      "parameters": {
+        "a": 1,
+        "b": 3,
+        "rho": 0.08,
+        "D": 4,
+        "T": 3
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1714,
+          "pgn": "1. Nc3 Nc6 2. e4 Nf6 3. Na4 Nxe4 4. c3 Nxc3 5. dxc3 d5 6. f4 Be6 7. b3 Qd6 8. Bb2 Qxf4 9. g4 Qxf1+ 10. Kxf1 Bxg4 11. Qxg4 e5 12. Ne2 Bc5 13. Nxc5 f6 14. Qxg7 Nd4 15. Qxh8+ Kf7",
+          "fen": "r6Q/ppp2k1p/5p2/2Npp3/3n4/1PP5/PB2N2P/R4K1R w - - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1302,
+          "pgn": "1. Nc3 h6 2. Nf3 f5 3. e4 fxe4 4. Nxe4 d5 5. Bd3 dxe4 6. Bxe4 Be6 7. Bxb7 Bf7 8. Bxa8 Bg6 9. Bd5 Qxd5 10. d4 Na6 11. Bxh6 Rxh6 12. Qd3 Bxd3 13. cxd3 Qb7 14. Ne5 Qxg2 15. f3 Qxh1+",
+          "fen": "4kbn1/p1p1p1p1/n6r/4N3/3P4/3P1P2/PP5P/R3K2q w Q - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1672,
+          "pgn": "1. Nf3 e5 2. Nxe5 Nf6 3. e3 Bc5 4. Be2 Bxe3 5. dxe3 Nc6 6. Nd3 d5 7. Nc3 Bf5 8. Nxd5 Qxd5 9. Bf1 Bxd3 10. cxd3 Qxd3 11. Qxd3 Ne5 12. Qd2 Nd5 13. Qxd5 c6 14. Qxe5+ Kd7 15. Qxg7 Ke6",
+          "fen": "r6r/pp3pQp/2p1k3/8/8/4P3/PP3PPP/R1B1KB1R w KQ - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1440,
+          "pgn": "1. Nf3 Nf6 2. d4 b5 3. Qd3 b4 4. Qxh7 Rxh7 5. Nc3 bxc3 6. bxc3 Ba6 7. Be3 e6 8. Ne5 Rh5 9. Nxf7 Kxf7 10. f3 Bc4 11. O-O-O Ke8 12. Re1 Bxa2 13. h4 d6 14. c4 Bxc4 15. c3 Qd7",
+          "fen": "rn2kb2/p1pq2p1/3ppn2/7r/2bP3P/2P1BP2/4P1P1/2K1RB1R w - - 1 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 3,
+      "candidate": 1,
+      "parameters": {
+        "a": 0.8492747732903808,
+        "b": 2.7536007093731314,
+        "rho": 0.024926190534606582,
+        "D": 2,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 816,
+          "pgn": "1. d4 Nc6 2. d5 e5 3. dxc6 dxc6 4. Qxd8+ Kxd8 5. e4 Nf6 6. Bg5 Bd6 7. c4 Bf5 8. exf5 Rf8 9. b3 Rh8 10. Nc3 Rg8 11. Bxf6+ gxf6 12. g4 Rxg4 13. Nge2 Rxc4 14. bxc4 c5 15. Ne4 c6",
+          "fen": "r2k4/pp3p1p/2pb1p2/2p1pP2/2P1N3/8/P3NP1P/R3KB1R w KQ - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1454,
+          "pgn": "1. Nc3 Nc6 2. d4 Nb4 3. e4 Nf6 4. Bd3 d6 5. Bf4 a5 6. Bxd6 Qxd6 7. Nf3 Ra7 8. Ne5 Qxd4 9. Nxf7 Kxf7 10. Qf3 Nxd3+ 11. cxd3 Qd7 12. Qxf6+ gxf6 13. Nd5 Qd6 14. Nxf6 exf6 15. f4 Qxf4",
+          "fen": "2b2b1r/rpp2k1p/5p2/p7/4Pq2/3P4/PP4PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "checkmate",
+          "plies": 29,
+          "final_eval_white": 2604,
+          "pgn": "1. Nc3 d5 2. e3 Nf6 3. d4 e5 4. dxe5 Nc6 5. exf6 Qxf6 6. Nxd5 Qxf2+ 7. Kxf2 Be6 8. Nxc7+ Ke7 9. Nxa8 Bxa2 10. Rxa2 Nd4 11. Qxd4 f6 12. Rxa7 Ke6 13. Rxb7 Bc5 14. Qxc5 Rxa8 15. Re7#",
+          "fen": "r7/4R1pp/4kp2/2Q5/8/4P3/1PP2KPP/2B2BNR b - - 1 15",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1456,
+          "pgn": "1. Nf3 Nf6 2. d4 e5 3. Nxe5 d6 4. Nxf7 Kxf7 5. Bf4 Kg6 6. Bxd6 Qxd6 7. e4 Nxe4 8. Qd3 Qb4+ 9. Nc3 Be6 10. Qxe4+ Kf7 11. Qxe6+ Kxe6 12. Bd3 Qxd4 13. Bxh7 Rxh7 14. Ne4 Qxe4+ 15. Kd1 Qxg2",
+          "fen": "rn3b2/ppp3pr/4k3/8/8/8/PPP2PqP/R2K3R w - - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 3,
+      "candidate": 2,
+      "parameters": {
+        "a": 1.171192443696782,
+        "b": 2.3930696526076645,
+        "rho": 0.060162630788981916,
+        "D": 3,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1128,
+          "pgn": "1. d4 e5 2. dxe5 Bd6 3. exd6 cxd6 4. Qxd6 Nc6 5. Kd2 Qf6 6. Qxf6 Nxf6 7. Nc3 d5 8. Nf3 Be6 9. e3 Ne4+ 10. Nxe4 dxe4 11. Ng5 Bxa2 12. Rxa2 f6 13. Nxe4 Nd4 14. exd4 Rg8 15. Bd3 b5",
+          "fen": "r3k1r1/p5pp/5p2/1p6/3PN3/3B4/RPPK1PPP/2B4R w q b6 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1134,
+          "pgn": "1. Nc3 Nc6 2. Nf3 Nf6 3. e4 d6 4. d4 Rb8 5. Bd3 Rg8 6. Be3 Nb4 7. Nd5 Nfxd5 8. exd5 Nxd5 9. Bxh7 Rh8 10. Be4 Nxe3 11. fxe3 b5 12. Qd3 d5 13. Bxd5 Qxd5 14. Qxb5+ Rxb5 15. e4 Qxe4+",
+          "fen": "2b1kb1r/p1p1ppp1/8/1r6/3Pq3/5N2/PPP3PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2882,
+          "pgn": "1. d4 e5 2. dxe5 Bc5 3. Qd5 Bxf2+ 4. Kxf2 Nc6 5. Kf3 Nxe5+ 6. Qxe5+ Qe7 7. Qxc7 Qxe2+ 8. Nxe2 d5 9. Bg5 Be6 10. Qxb7 Nf6 11. Qxa8+ Ke7 12. Qxh8 g6 13. Qxf6+ Kd7 14. a3 Kc6 15. Nbc3 a6",
+          "fen": "8/5p1p/p1k1bQp1/3p2B1/8/P1N2K2/1PP1N1PP/R4B1R w - - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1810,
+          "pgn": "1. Nf3 Nf6 2. Nc3 Nc6 3. d4 g6 4. Bf4 Bg7 5. Bxc7 Qxc7 6. Qd3 Qd6 7. Qxg6 hxg6 8. e4 Qb8 9. Bd3 Kf8 10. Ne5 Nxd4 11. Nxg6+ fxg6 12. f4 Qxf4 13. Nd5 Nxd5 14. exd5 Qe5+ 15. Be4 Qxe4+",
+          "fen": "r1b2k1r/pp1pp1b1/6p1/3P4/3nq3/8/PPP3PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 4,
+      "candidate": 0,
+      "parameters": {
+        "a": 1,
+        "b": 3,
+        "rho": 0.08,
+        "D": 4,
+        "T": 3
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1714,
+          "pgn": "1. Nc3 Nc6 2. e4 Nf6 3. Na4 Nxe4 4. c3 Nxc3 5. dxc3 d5 6. f4 Be6 7. b3 Qd6 8. Bb2 Qxf4 9. g4 Qxf1+ 10. Kxf1 Bxg4 11. Qxg4 e5 12. Ne2 Bc5 13. Nxc5 f6 14. Qxg7 Nd4 15. Qxh8+ Kf7",
+          "fen": "r6Q/ppp2k1p/5p2/2Npp3/3n4/1PP5/PB2N2P/R4K1R w - - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1302,
+          "pgn": "1. Nc3 h6 2. Nf3 f5 3. e4 fxe4 4. Nxe4 d5 5. Bd3 dxe4 6. Bxe4 Be6 7. Bxb7 Bf7 8. Bxa8 Bg6 9. Bd5 Qxd5 10. d4 Na6 11. Bxh6 Rxh6 12. Qd3 Bxd3 13. cxd3 Qb7 14. Ne5 Qxg2 15. f3 Qxh1+",
+          "fen": "4kbn1/p1p1p1p1/n6r/4N3/3P4/3P1P2/PP5P/R3K2q w Q - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1672,
+          "pgn": "1. Nf3 e5 2. Nxe5 Nf6 3. e3 Bc5 4. Be2 Bxe3 5. dxe3 Nc6 6. Nd3 d5 7. Nc3 Bf5 8. Nxd5 Qxd5 9. Bf1 Bxd3 10. cxd3 Qxd3 11. Qxd3 Ne5 12. Qd2 Nd5 13. Qxd5 c6 14. Qxe5+ Kd7 15. Qxg7 Ke6",
+          "fen": "r6r/pp3pQp/2p1k3/8/8/4P3/PP3PPP/R1B1KB1R w KQ - 1 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1440,
+          "pgn": "1. Nf3 Nf6 2. d4 b5 3. Qd3 b4 4. Qxh7 Rxh7 5. Nc3 bxc3 6. bxc3 Ba6 7. Be3 e6 8. Ne5 Rh5 9. Nxf7 Kxf7 10. f3 Bc4 11. O-O-O Ke8 12. Re1 Bxa2 13. h4 d6 14. c4 Bxc4 15. c3 Qd7",
+          "fen": "rn2kb2/p1pq2p1/3ppn2/7r/2bP3P/2P1BP2/4P1P1/2K1RB1R w - - 1 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 4,
+      "candidate": 1,
+      "parameters": {
+        "a": 1.0554639674723147,
+        "b": 3.499726361827925,
+        "rho": 0.06566668964922429,
+        "D": 2,
+        "T": 4
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2110,
+          "pgn": "1. Nf3 Nc6 2. g4 Nf6 3. g5 e5 4. gxf6 Qxf6 5. Nxe5 Nxe5 6. c3 Qxf2+ 7. Kxf2 d5 8. Qb3 Bd6 9. Qxd5 Be6 10. Qxb7 Bxa2 11. Qxa8+ Kd7 12. Qxh8 Bxb1 13. Rxb1 f6 14. Qxg7+ Kc8 15. Qxf6 c6",
+          "fen": "2k5/p6p/2pb1Q2/4n3/8/2P5/1P1PPK1P/1RB2B1R w - - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1052,
+          "pgn": "1. Nc3 Nc6 2. d4 h5 3. Nf3 Rb8 4. Qd3 a6 5. Qxa6 bxa6 6. Be3 Rxb2 7. Ne4 Rxc2 8. Ne5 Nxe5 9. dxe5 a5 10. f4 c6 11. Bd4 g6 12. e3 Bg7 13. Bd3 Rxg2 14. a4 Rh6 15. O-O-O Rh7",
+          "fen": "2bqk1n1/3pppbr/2p3p1/p3P2p/P2BNP2/3BP3/6rP/2KR3R w - - 3 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 2382,
+          "pgn": "1. b4 d5 2. d4 Bf5 3. h3 Bxc2 4. Qxc2 Nc6 5. e3 Nxd4 6. exd4 Qd6 7. Qc3 Qxb4 8. Qxb4 Nf6 9. Qxb7 e5 10. Qxa8+ Ke7 11. dxe5 c5 12. exf6+ gxf6 13. Qxd5 Bg7 14. Qxc5+ Kd7 15. Nc3 a6",
+          "fen": "7r/3k1pbp/p4p2/2Q5/8/2N4P/P4PP1/R1B1KBNR w KQ - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -846,
+          "pgn": "1. Nf3 Nc6 2. e4 Na5 3. d4 f6 4. Qd3 a6 5. Qxa6 bxa6 6. Bxa6 Rxa6 7. Bf4 c6 8. Nc3 Kf7 9. Be5 fxe5 10. Nxe5+ Kf6 11. Nxc6 Rxc6 12. f3 Qc7 13. Nd5+ Kf7 14. Nxc7 Rxc7 15. c3 Rc4",
+          "fen": "2b2bnr/3ppkpp/8/n7/2rPP3/2P2P2/PP4PP/R3K2R w KQ - 1 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    },
+    {
+      "generation": 4,
+      "candidate": 2,
+      "parameters": {
+        "a": 0.8511434845160692,
+        "b": 3.207277424633503,
+        "rho": 0.05293725300580263,
+        "D": 2,
+        "T": 2
+      },
+      "points_per_game": 1,
+      "games": [
+        {
+          "seed": 31000,
+          "white_points": 1,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": 1164,
+          "pgn": "1. d4 Nc6 2. d5 e5 3. dxc6 dxc6 4. Qxd8+ Kxd8 5. e4 Nf6 6. Bg5 Bd6 7. c4 Bf5 8. exf5 Rf8 9. b3 Rh8 10. Nc3 Rg8 11. Bh4 g6 12. Bxf6+ Kc8 13. Rd1 gxf5 14. Nf3 Rxg2 15. Bxg2 h6",
+          "fen": "r1k5/ppp2p2/2pb1B1p/4pp2/2P5/1PN2N2/P4PBP/3RK2R w K - 0 16",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31001,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -2004,
+          "pgn": "1. Nc3 Nc6 2. d4 Nb4 3. e4 Nc6 4. Bd3 Nxd4 5. Bf4 a6 6. Bxc7 Qxc7 7. Bxa6 bxa6 8. Qxd4 Nh6 9. Qxg7 Bxg7 10. Nf3 Bf6 11. Ne5 Qxe5 12. f4 Qxf4 13. Nd5 Qxe4+ 14. Kd2 Qxd5+ 15. Kc1 Qxg2",
+          "fen": "r1b1k2r/3ppp1p/p4b1n/8/8/8/PPP3qP/R1K4R w kq - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31002,
+          "white_points": 1,
+          "termination": "checkmate",
+          "plies": 29,
+          "final_eval_white": 2604,
+          "pgn": "1. Nc3 d5 2. e3 Nf6 3. d4 e5 4. dxe5 Nc6 5. exf6 Qxf6 6. Nxd5 Qxf2+ 7. Kxf2 Be6 8. Nxc7+ Ke7 9. Nxa8 Bxa2 10. Rxa2 Nd4 11. Qxd4 f6 12. Rxa7 Ke6 13. Rxb7 Bc5 14. Qxc5 Rxa8 15. Re7#",
+          "fen": "r7/4R1pp/4kp2/2Q5/8/4P3/1PP2KPP/2B2BNR b - - 1 15",
+          "candidate_white": true,
+          "candidate_points": 1
+        },
+        {
+          "seed": 31003,
+          "white_points": 0,
+          "termination": "material_adjudication",
+          "plies": 30,
+          "final_eval_white": -1918,
+          "pgn": "1. Nf3 Nc6 2. d4 Rb8 3. Nc3 a6 4. Bf4 Ra8 5. Bxc7 Qxc7 6. Qd3 Qb6 7. Qxa6 Qxa6 8. e4 Qa7 9. Bd3 Qb8 10. Nd5 e6 11. Ne5 Nxd4 12. Nxd7 Bxd7 13. f4 exd5 14. exd5 Qxf4 15. Bxh7 Rxh7",
+          "fen": "r3kbn1/1p1b1ppr/8/3P4/3n1q2/8/PPP3PP/R3K2R w KQ - 0 16",
+          "candidate_white": false,
+          "candidate_points": 1
+        }
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "seed": 91000,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 778,
+      "pgn": "1. Nc3 Nf6 2. Na4 Ng4 3. Nc3 a6 4. e4 Nf6 5. e5 Nc6 6. exf6 exf6 7. Qf3 Qe7+ 8. Kd1 Nd4 9. Qh3 g6 10. Nd5 Qe4 11. Nxc7+ Ke7 12. Nxa8 d6 13. Qg3 Ke6 14. Qh3+ f5 15. Bc4+ d5",
+      "fen": "N1b2b1r/1p3p1p/p3k1p1/3p1p2/2Bnq3/7Q/PPPP1PPP/R1BK2NR w - - 0 16",
+      "pair": 1,
+      "trained_white": true,
+      "trained_points": 1
+    },
+    {
+      "seed": 91000,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 778,
+      "pgn": "1. Nc3 Nf6 2. Na4 Ng4 3. Nc3 a6 4. e4 Nf6 5. e5 Nc6 6. exf6 exf6 7. Qf3 Qe7+ 8. Kd1 Nd4 9. Qh3 g6 10. Nd5 Qe4 11. Nxc7+ Ke7 12. Nxa8 d6 13. Qg3 Ke6 14. Qh3+ f5 15. Bc4+ d5",
+      "fen": "N1b2b1r/1p3p1p/p3k1p1/3p1p2/2Bnq3/7Q/PPPP1PPP/R1BK2NR w - - 0 16",
+      "pair": 1,
+      "trained_white": false,
+      "trained_points": 0
+    },
+    {
+      "seed": 91001,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 404,
+      "pgn": "1. d4 Nc6 2. d5 Ne5 3. Qd4 Ng4 4. Qxg4 f5 5. Qg5 c6 6. d6 Kf7 7. dxe7 Bxe7 8. Qxf5+ Bf6 9. e4 Qc7 10. Be2 g6 11. Bc4+ Kg7 12. Qg4 Qd8 13. a3 Qa5+ 14. Ke2 Qc5 15. Bxg8 Rxg8",
+      "fen": "r1b3r1/pp1p2kp/2p2bp1/2q5/4P1Q1/P7/1PP1KPPP/RNB3NR w - - 0 16",
+      "pair": 2,
+      "trained_white": true,
+      "trained_points": 1
+    },
+    {
+      "seed": 91001,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 404,
+      "pgn": "1. d4 Nc6 2. d5 Ne5 3. Qd4 Ng4 4. Qxg4 f5 5. Qg5 c6 6. d6 Kf7 7. dxe7 Bxe7 8. Qxf5+ Bf6 9. e4 Qc7 10. Be2 g6 11. Bc4+ Kg7 12. Qg4 Qd8 13. a3 Qa5+ 14. Ke2 Qc5 15. Bxg8 Rxg8",
+      "fen": "r1b3r1/pp1p2kp/2p2bp1/2q5/4P1Q1/P7/1PP1KPPP/RNB3NR w - - 0 16",
+      "pair": 2,
+      "trained_white": false,
+      "trained_points": 0
+    },
+    {
+      "seed": 91002,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 412,
+      "pgn": "1. b3 Nc6 2. Nf3 d6 3. Nc3 Bf5 4. Rg1 Nf6 5. Ng5 Bxc2 6. Qxc2 g6 7. Nd1 Nd4 8. Qc4 Ne6 9. Qb5+ c6 10. Qxb7 Nxg5 11. f4 Rc8 12. fxg5 Nd5 13. e4 Nf4 14. Qxa7 h5 15. gxh6 Rxh6",
+      "fen": "2rqkb2/Q3pp2/2pp2pr/8/4Pn2/1P6/P2P2PP/R1BNKBR1 w Q - 0 16",
+      "pair": 3,
+      "trained_white": true,
+      "trained_points": 1
+    },
+    {
+      "seed": 91002,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 412,
+      "pgn": "1. b3 Nc6 2. Nf3 d6 3. Nc3 Bf5 4. Rg1 Nf6 5. Ng5 Bxc2 6. Qxc2 g6 7. Nd1 Nd4 8. Qc4 Ne6 9. Qb5+ c6 10. Qxb7 Nxg5 11. f4 Rc8 12. fxg5 Nd5 13. e4 Nf4 14. Qxa7 h5 15. gxh6 Rxh6",
+      "fen": "2rqkb2/Q3pp2/2pp2pr/8/4Pn2/1P6/P2P2PP/R1BNKBR1 w Q - 0 16",
+      "pair": 3,
+      "trained_white": false,
+      "trained_points": 0
+    },
+    {
+      "seed": 91003,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -310,
+      "pgn": "1. Nc3 e5 2. a4 Nc6 3. h3 Qf6 4. Nb1 Bd6 5. b3 Bf8 6. c3 Qf4 7. Ra2 Be7 8. c4 Qd4 9. d3 Bf6 10. Qc2 Nb4 11. Qd2 Nxa2 12. Qxa2 c5 13. g3 Ke7 14. Na3 h5 15. Kd2 Qxf2",
+      "fen": "r1b3nr/pp1pkpp1/5b2/2p1p2p/P1P5/NP1P2PP/Q2KPq2/2B2BNR w - - 0 16",
+      "pair": 4,
+      "trained_white": true,
+      "trained_points": 0
+    },
+    {
+      "seed": 91003,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -310,
+      "pgn": "1. Nc3 e5 2. a4 Nc6 3. h3 Qf6 4. Nb1 Bd6 5. b3 Bf8 6. c3 Qf4 7. Ra2 Be7 8. c4 Qd4 9. d3 Bf6 10. Qc2 Nb4 11. Qd2 Nxa2 12. Qxa2 c5 13. g3 Ke7 14. Na3 h5 15. Kd2 Qxf2",
+      "fen": "r1b3nr/pp1pkpp1/5b2/2p1p2p/P1P5/NP1P2PP/Q2KPq2/2B2BNR w - - 0 16",
+      "pair": 4,
+      "trained_white": false,
+      "trained_points": 1
+    },
+    {
+      "seed": 91004,
+      "white_points": 0,
+      "termination": "checkmate",
+      "plies": 24,
+      "final_eval_white": -1248,
+      "pgn": "1. Nf3 Nc6 2. c3 Rb8 3. e4 Ra8 4. b3 d5 5. exd5 Qxd5 6. Rg1 Nb8 7. a3 Nf6 8. Qc2 Bg4 9. Nh4 b6 10. b4 Qe6+ 11. Qe4 Qxe4+ 12. Be2 Qxe2#",
+      "fen": "rn2kb1r/p1p1pppp/1p3n2/8/1P4bN/P1P5/3PqPPP/RNB1K1R1 w Qk - 0 13",
+      "pair": 5,
+      "trained_white": true,
+      "trained_points": 0
+    },
+    {
+      "seed": 91004,
+      "white_points": 0,
+      "termination": "checkmate",
+      "plies": 24,
+      "final_eval_white": -1248,
+      "pgn": "1. Nf3 Nc6 2. c3 Rb8 3. e4 Ra8 4. b3 d5 5. exd5 Qxd5 6. Rg1 Nb8 7. a3 Nf6 8. Qc2 Bg4 9. Nh4 b6 10. b4 Qe6+ 11. Qe4 Qxe4+ 12. Be2 Qxe2#",
+      "fen": "rn2kb1r/p1p1pppp/1p3n2/8/1P4bN/P1P5/3PqPPP/RNB1K1R1 w Qk - 0 13",
+      "pair": 5,
+      "trained_white": false,
+      "trained_points": 1
+    },
+    {
+      "seed": 91005,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 708,
+      "pgn": "1. g3 d6 2. d4 a5 3. c3 Ra7 4. a3 Nc6 5. Qa4 f6 6. e4 b5 7. Bxb5 Rb7 8. Bxc6+ Kf7 9. Bxb7 Bxb7 10. Qc4+ e6 11. Qa4 Qb8 12. Qd7+ Be7 13. Be3 Qa7 14. Qxc7 h6 15. Bc1 Rh7",
+      "fen": "6n1/qbQ1bkpr/3ppp1p/p7/3PP3/P1P3P1/1P3P1P/RNB1K1NR w KQ - 2 16",
+      "pair": 6,
+      "trained_white": true,
+      "trained_points": 1
+    },
+    {
+      "seed": 91005,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 708,
+      "pgn": "1. g3 d6 2. d4 a5 3. c3 Ra7 4. a3 Nc6 5. Qa4 f6 6. e4 b5 7. Bxb5 Rb7 8. Bxc6+ Kf7 9. Bxb7 Bxb7 10. Qc4+ e6 11. Qa4 Qb8 12. Qd7+ Be7 13. Be3 Qa7 14. Qxc7 h6 15. Bc1 Rh7",
+      "fen": "6n1/qbQ1bkpr/3ppp1p/p7/3PP3/P1P3P1/1P3P1P/RNB1K1NR w KQ - 2 16",
+      "pair": 6,
+      "trained_white": false,
+      "trained_points": 0
+    },
+    {
+      "seed": 91006,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 94,
+      "pgn": "1. c3 Nc6 2. f3 Ne5 3. b4 Nf6 4. f4 Nc6 5. b5 Nb8 6. h4 d5 7. Qa4 Be6 8. Qa3 Nbd7 9. Qb3 d4 10. Qa3 Bd5 11. cxd4 Bc4 12. Qa5 Bd5 13. Qc3 Rc8 14. Qe3 h6 15. Qg3 Rh7",
+      "fen": "2rqkb2/pppnpppr/5n1p/1P1b4/3P1P1P/6Q1/P2PP1P1/RNB1KBNR w KQ - 2 16",
+      "pair": 7,
+      "trained_white": true,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91006,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 94,
+      "pgn": "1. c3 Nc6 2. f3 Ne5 3. b4 Nf6 4. f4 Nc6 5. b5 Nb8 6. h4 d5 7. Qa4 Be6 8. Qa3 Nbd7 9. Qb3 d4 10. Qa3 Bd5 11. cxd4 Bc4 12. Qa5 Bd5 13. Qc3 Rc8 14. Qe3 h6 15. Qg3 Rh7",
+      "fen": "2rqkb2/pppnpppr/5n1p/1P1b4/3P1P1P/6Q1/P2PP1P1/RNB1KBNR w KQ - 2 16",
+      "pair": 7,
+      "trained_white": false,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91007,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 562,
+      "pgn": "1. c3 e5 2. a4 Nf6 3. h3 Ne4 4. d4 d6 5. dxe5 Qd7 6. exd6 c5 7. Qc2 Nxd6 8. b4 Nc6 9. bxc5 Nb8 10. cxd6 h5 11. Qe4+ Kd8 12. Bg5+ f6 13. Bf4 h4 14. Qd5 Ke8 15. Qe4+ Kf7",
+      "fen": "rnb2b1r/pp1q1kp1/3P1p2/8/P3QB1p/2P4P/4PPP1/RN2KBNR w KQ - 4 16",
+      "pair": 8,
+      "trained_white": true,
+      "trained_points": 1
+    },
+    {
+      "seed": 91007,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 562,
+      "pgn": "1. c3 e5 2. a4 Nf6 3. h3 Ne4 4. d4 d6 5. dxe5 Qd7 6. exd6 c5 7. Qc2 Nxd6 8. b4 Nc6 9. bxc5 Nb8 10. cxd6 h5 11. Qe4+ Kd8 12. Bg5+ f6 13. Bf4 h4 14. Qd5 Ke8 15. Qe4+ Kf7",
+      "fen": "rnb2b1r/pp1q1kp1/3P1p2/8/P3QB1p/2P4P/4PPP1/RN2KBNR w KQ - 4 16",
+      "pair": 8,
+      "trained_white": false,
+      "trained_points": 0
+    },
+    {
+      "seed": 91008,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -624,
+      "pgn": "1. e4 b6 2. d4 f6 3. Qg4 Bb7 4. e5 fxe5 5. dxe5 g6 6. c3 d6 7. Kd1 Bg7 8. Bb5+ Kf8 9. exd6 exd6 10. Kd2 Qe7 11. c4 c5 12. Qf4+ Nf6 13. Kd1 Bxg2 14. Kc2 Bxh1 15. b3 d5",
+      "fen": "rn3k1r/p3q1bp/1p3np1/1Bpp4/2P2Q2/1P6/P1K2P1P/RNB3Nb w - - 0 16",
+      "pair": 9,
+      "trained_white": true,
+      "trained_points": 0
+    },
+    {
+      "seed": 91008,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -624,
+      "pgn": "1. e4 b6 2. d4 f6 3. Qg4 Bb7 4. e5 fxe5 5. dxe5 g6 6. c3 d6 7. Kd1 Bg7 8. Bb5+ Kf8 9. exd6 exd6 10. Kd2 Qe7 11. c4 c5 12. Qf4+ Nf6 13. Kd1 Bxg2 14. Kc2 Bxh1 15. b3 d5",
+      "fen": "rn3k1r/p3q1bp/1p3np1/1Bpp4/2P2Q2/1P6/P1K2P1P/RNB3Nb w - - 0 16",
+      "pair": 9,
+      "trained_white": false,
+      "trained_points": 1
+    },
+    {
+      "seed": 91009,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -58,
+      "pgn": "1. d4 Nc6 2. d5 Ne5 3. Bf4 d6 4. Bxe5 dxe5 5. c4 Rb8 6. h3 Kd7 7. Rh2 Nf6 8. g4 a6 9. Rh1 a5 10. Qd2 c6 11. c5 Kc7 12. Qxa5+ b6 13. Qb4 Qxd5 14. Rh2 h6 15. Qa4 g5",
+      "fen": "1rb2b1r/2k1pp2/1pp2n1p/2Pqp1p1/Q5P1/7P/PP2PP1R/RN2KBN1 w Q g6 0 16",
+      "pair": 10,
+      "trained_white": true,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91009,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -58,
+      "pgn": "1. d4 Nc6 2. d5 Ne5 3. Bf4 d6 4. Bxe5 dxe5 5. c4 Rb8 6. h3 Kd7 7. Rh2 Nf6 8. g4 a6 9. Rh1 a5 10. Qd2 c6 11. c5 Kc7 12. Qxa5+ b6 13. Qb4 Qxd5 14. Rh2 h6 15. Qa4 g5",
+      "fen": "1rb2b1r/2k1pp2/1pp2n1p/2Pqp1p1/Q5P1/7P/PP2PP1R/RN2KBN1 w Q g6 0 16",
+      "pair": 10,
+      "trained_white": false,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91010,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 18,
+      "pgn": "1. a4 e5 2. c4 c5 3. d3 f6 4. e4 Ne7 5. Qb3 Nec6 6. Qc2 b6 7. b3 d6 8. Nc3 Nb4 9. Qe2 Nd7 10. Ba3 Na6 11. Nd5 g6 12. g3 h5 13. Nf3 Bg7 14. Qc2 Bf8 15. Bh3 Bb7",
+      "fen": "r2qkb1r/pb1n4/np1p1pp1/2pNp2p/P1P1P3/BP1P1NPB/2Q2P1P/R3K2R w KQkq - 6 16",
+      "pair": 11,
+      "trained_white": true,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91010,
+      "white_points": 0.5,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 18,
+      "pgn": "1. a4 e5 2. c4 c5 3. d3 f6 4. e4 Ne7 5. Qb3 Nec6 6. Qc2 b6 7. b3 d6 8. Nc3 Nb4 9. Qe2 Nd7 10. Ba3 Na6 11. Nd5 g6 12. g3 h5 13. Nf3 Bg7 14. Qc2 Bf8 15. Bh3 Bb7",
+      "fen": "r2qkb1r/pb1n4/np1p1pp1/2pNp2p/P1P1P3/BP1P1NPB/2Q2P1P/R3K2R w KQkq - 6 16",
+      "pair": 11,
+      "trained_white": false,
+      "trained_points": 0.5
+    },
+    {
+      "seed": 91011,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -336,
+      "pgn": "1. Nh3 f6 2. f4 d6 3. Nf2 Qd7 4. h4 d5 5. h5 a6 6. Nc3 h6 7. g4 b5 8. a4 bxa4 9. Nd3 Qxg4 10. Na2 Ra7 11. Kf2 Bd7 12. b4 Rb7 13. Qe1 Rb5 14. Rb1 Qf5 15. Nb2 Qxf4+",
+      "fen": "1n2kbnr/2pbp1p1/p4p1p/1r1p3P/pP3q2/8/NNPPPK2/1RB1QB1R w k - 0 16",
+      "pair": 12,
+      "trained_white": true,
+      "trained_points": 0
+    },
+    {
+      "seed": 91011,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -336,
+      "pgn": "1. Nh3 f6 2. f4 d6 3. Nf2 Qd7 4. h4 d5 5. h5 a6 6. Nc3 h6 7. g4 b5 8. a4 bxa4 9. Nd3 Qxg4 10. Na2 Ra7 11. Kf2 Bd7 12. b4 Rb7 13. Qe1 Rb5 14. Rb1 Qf5 15. Nb2 Qxf4+",
+      "fen": "1n2kbnr/2pbp1p1/p4p1p/1r1p3P/pP3q2/8/NNPPPK2/1RB1QB1R w k - 0 16",
+      "pair": 12,
+      "trained_white": false,
+      "trained_points": 1
+    }
+  ],
+  "greedy_checks": [
+    {
+      "seed": 101000,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1316,
+      "pgn": "1. e4 Nf6 2. e5 d5 3. exf6 gxf6 4. f4 Bf5 5. Bb5+ Nc6 6. h3 Bxc2 7. Qxc2 e5 8. Qb3 exf4 9. Bxc6+ bxc6 10. Kd1 Bd6 11. d4 Qd7 12. Qd3 Qxh3 13. Nxh3 Be5 14. dxe5 fxe5 15. b3 f5",
+      "fen": "r3k2r/p1p4p/2p5/3ppp2/5p2/1P1Q3N/P5P1/RNBK3R w kq f6 0 16",
+      "agent": "default",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101001,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -1904,
+      "pgn": "1. e4 b6 2. Bd3 Nc6 3. Nc3 h5 4. Qxh5 Rxh5 5. Nf3 Ra5 6. Nd5 f5 7. exf5 Rxd5 8. c3 Rxd3 9. Nd4 Nxd4 10. cxd4 Rxd4 11. f3 Bb7 12. d3 d5 13. Bf4 Rxf4 14. d4 Rxd4 15. Rb1 Qd6",
+      "fen": "r3kbn1/pbp1p1p1/1p1q4/3p1P2/3r4/5P2/PP4PP/1R2K2R w Kq - 2 16",
+      "agent": "default",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101002,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 990,
+      "pgn": "1. h4 Nf6 2. d4 e5 3. dxe5 Bc5 4. exf6 Qxf6 5. Kd2 Bxf2 6. Rh3 Bxg1 7. g3 Qxf1 8. Qxf1 Bd4 9. c3 Bxc3+ 10. bxc3 Nc6 11. Qg2 d5 12. Rh2 Be6 13. h5 f5 14. a4 Nd4 15. cxd4 c6",
+      "fen": "r3k2r/pp4pp/2p1b3/3p1p1P/P2P4/6P1/3KP1QR/RNB5 w kq - 0 16",
+      "agent": "default",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101003,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -1568,
+      "pgn": "1. Nf3 Nc6 2. d4 f5 3. Bf4 a6 4. Bxc7 Qxc7 5. e4 Qa5+ 6. Nc3 Kf7 7. exf5 d5 8. Bxa6 bxa6 9. Qd3 Nb8 10. Qxa6 Nxa6 11. Ne5+ Ke8 12. f3 Bxf5 13. Kd1 g5 14. Nxd5 Qxd5 15. c4 Qxd4+",
+      "fen": "r3kbnr/4p2p/n7/4Nbp1/2Pq4/5P2/PP4PP/R2K3R w - - 0 16",
+      "agent": "default",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101004,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1486,
+      "pgn": "1. Nf3 d5 2. a4 Bf5 3. Nc3 Bxc2 4. Qxc2 e5 5. Qb3 Nf6 6. Qxb7 Bc5 7. Qxa8 Bxf2+ 8. Kxf2 Nc6 9. Qxc6+ Qd7 10. Qxd7+ Kxd7 11. Nxe5+ Ke6 12. d4 Ne4+ 13. Nxe4 dxe4 14. Ra3 f5 15. Kg3 c6",
+      "fen": "7r/p5pp/2p1k3/4Np2/P2Pp3/R5K1/1P2P1PP/2B2B1R w - - 0 16",
+      "agent": "default",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101005,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -408,
+      "pgn": "1. e4 e5 2. d4 d5 3. dxe5 Bb4+ 4. Nc3 Nc6 5. Qxd5 Qxd5 6. exd5 Bxc3+ 7. bxc3 Nxe5 8. Bf4 Ng4 9. Bxc7 g6 10. Be5 Nxe5 11. Bc4 Nxc4 12. Nf3 h6 13. Nd4 Bg4 14. f3 Bd7 15. Ke2 Ba4",
+      "fen": "r3k1nr/pp3p2/6pp/3P4/b1nN4/2P2P2/P1P1K1PP/R6R w kq - 3 16",
+      "agent": "default",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101006,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1552,
+      "pgn": "1. Nc3 e5 2. e4 Nc6 3. Bb5 d5 4. Bxc6+ bxc6 5. d3 dxe4 6. b3 Qxd3 7. cxd3 exd3 8. Qxd3 Be6 9. Qe3 Bxb3 10. axb3 Nf6 11. Qxe5+ Be7 12. Qxc7 Ne4 13. Nxe4 f5 14. Nc3 Bc5 15. Qxc6+ Kd8",
+      "fen": "r2k3r/p5pp/2Q5/2b2p2/8/1PN5/5PPP/R1B1K1NR w KQ - 1 16",
+      "agent": "default",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101007,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -2106,
+      "pgn": "1. Nc3 h5 2. d4 Nc6 3. Qd3 Na5 4. Nf3 e6 5. Be3 Bb4 6. Qe4 d6 7. Qxe6+ fxe6 8. Ne5 dxe5 9. dxe5 Nc6 10. Bxa7 Rxa7 11. e4 Nxe5 12. Bc4 Nxc4 13. f3 Nxb2 14. h3 Bxc3+ 15. Ke2 Kf8",
+      "fen": "2bq1knr/rpp3p1/4p3/7p/4P3/2b2P1P/PnP1K1P1/R6R w - - 2 16",
+      "agent": "default",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101000,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1316,
+      "pgn": "1. e4 Nf6 2. e5 d5 3. exf6 gxf6 4. f4 Bf5 5. Bb5+ Nc6 6. h3 Bxc2 7. Qxc2 e5 8. Qb3 exf4 9. Bxc6+ bxc6 10. Kd1 Bd6 11. d4 Qd7 12. Qd3 Qxh3 13. Nxh3 Be5 14. dxe5 fxe5 15. b3 f5",
+      "fen": "r3k2r/p1p4p/2p5/3ppp2/5p2/1P1Q3N/P5P1/RNBK3R w kq f6 0 16",
+      "agent": "selected",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101001,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -1904,
+      "pgn": "1. e4 b6 2. Bd3 Nc6 3. Nc3 h5 4. Qxh5 Rxh5 5. Nf3 Ra5 6. Nd5 f5 7. exf5 Rxd5 8. c3 Rxd3 9. Nd4 Nxd4 10. cxd4 Rxd4 11. f3 Bb7 12. d3 d5 13. Bf4 Rxf4 14. d4 Rxd4 15. Rb1 Qd6",
+      "fen": "r3kbn1/pbp1p1p1/1p1q4/3p1P2/3r4/5P2/PP4PP/1R2K2R w Kq - 2 16",
+      "agent": "selected",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101002,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 990,
+      "pgn": "1. h4 Nf6 2. d4 e5 3. dxe5 Bc5 4. exf6 Qxf6 5. Kd2 Bxf2 6. Rh3 Bxg1 7. g3 Qxf1 8. Qxf1 Bd4 9. c3 Bxc3+ 10. bxc3 Nc6 11. Qg2 d5 12. Rh2 Be6 13. h5 f5 14. a4 Nd4 15. cxd4 c6",
+      "fen": "r3k2r/pp4pp/2p1b3/3p1p1P/P2P4/6P1/3KP1QR/RNB5 w kq - 0 16",
+      "agent": "selected",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101003,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -1568,
+      "pgn": "1. Nf3 Nc6 2. d4 f5 3. Bf4 a6 4. Bxc7 Qxc7 5. e4 Qa5+ 6. Nc3 Kf7 7. exf5 d5 8. Bxa6 bxa6 9. Qd3 Nb8 10. Qxa6 Nxa6 11. Ne5+ Ke8 12. f3 Bxf5 13. Kd1 g5 14. Nxd5 Qxd5 15. c4 Qxd4+",
+      "fen": "r3kbnr/4p2p/n7/4Nbp1/2Pq4/5P2/PP4PP/R2K3R w - - 0 16",
+      "agent": "selected",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101004,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1486,
+      "pgn": "1. Nf3 d5 2. a4 Bf5 3. Nc3 Bxc2 4. Qxc2 e5 5. Qb3 Nf6 6. Qxb7 Bc5 7. Qxa8 Bxf2+ 8. Kxf2 Nc6 9. Qxc6+ Qd7 10. Qxd7+ Kxd7 11. Nxe5+ Ke6 12. d4 Ne4+ 13. Nxe4 dxe4 14. Ra3 f5 15. Kg3 c6",
+      "fen": "7r/p5pp/2p1k3/4Np2/P2Pp3/R5K1/1P2P1PP/2B2B1R w - - 0 16",
+      "agent": "selected",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101005,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -408,
+      "pgn": "1. e4 e5 2. d4 d5 3. dxe5 Bb4+ 4. Nc3 Nc6 5. Qxd5 Qxd5 6. exd5 Bxc3+ 7. bxc3 Nxe5 8. Bf4 Ng4 9. Bxc7 g6 10. Be5 Nxe5 11. Bc4 Nxc4 12. Nf3 h6 13. Nd4 Bg4 14. f3 Bd7 15. Ke2 Ba4",
+      "fen": "r3k1nr/pp3p2/6pp/3P4/b1nN4/2P2P2/P1P1K1PP/R6R w kq - 3 16",
+      "agent": "selected",
+      "agent_white": false,
+      "agent_points": 1
+    },
+    {
+      "seed": 101006,
+      "white_points": 1,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": 1552,
+      "pgn": "1. Nc3 e5 2. e4 Nc6 3. Bb5 d5 4. Bxc6+ bxc6 5. d3 dxe4 6. b3 Qxd3 7. cxd3 exd3 8. Qxd3 Be6 9. Qe3 Bxb3 10. axb3 Nf6 11. Qxe5+ Be7 12. Qxc7 Ne4 13. Nxe4 f5 14. Nc3 Bc5 15. Qxc6+ Kd8",
+      "fen": "r2k3r/p5pp/2Q5/2b2p2/8/1PN5/5PPP/R1B1K1NR w KQ - 1 16",
+      "agent": "selected",
+      "agent_white": true,
+      "agent_points": 1
+    },
+    {
+      "seed": 101007,
+      "white_points": 0,
+      "termination": "material_adjudication",
+      "plies": 30,
+      "final_eval_white": -2106,
+      "pgn": "1. Nc3 h5 2. d4 Nc6 3. Qd3 Na5 4. Nf3 e6 5. Be3 Bb4 6. Qe4 d6 7. Qxe6+ fxe6 8. Ne5 dxe5 9. dxe5 Nc6 10. Bxa7 Rxa7 11. e4 Nxe5 12. Bc4 Nxc4 13. f3 Nxb2 14. h3 Bxc3+ 15. Ke2 Kf8",
+      "fen": "2bq1knr/rpp3p1/4p3/7p/4P3/2b2P1P/PnP1K1P1/R6R w - - 2 16",
+      "agent": "selected",
+      "agent_white": false,
+      "agent_points": 1
+    }
+  ],
+  "mazes": [
+    {
+      "size": 10,
+      "seed": 502000,
+      "shortest_steps": 24,
+      "ant_steps": 24,
+      "extra_pct": 0,
+      "reached_of_1000": 999,
+      "walk_steps": 41866,
+      "bfs_ms": 0.5463999998755753,
+      "ant_ms": 139.16339999996126,
+      "maze_sha256": "0d432e3edbcb9bef4e277dbe500b2bf8ab65d5c27f8d4dd4857e84028e1674b4"
+    },
+    {
+      "size": 10,
+      "seed": 502001,
+      "shortest_steps": 20,
+      "ant_steps": 20,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 22754,
+      "bfs_ms": 0.048100000247359276,
+      "ant_ms": 175.93459999980405,
+      "maze_sha256": "61fb033e430be2ba24df2d7b6db8489dc2dd2d4993ed84800f866339025904eb"
+    },
+    {
+      "size": 10,
+      "seed": 502002,
+      "shortest_steps": 24,
+      "ant_steps": 24,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 39628,
+      "bfs_ms": 0.04110000003129244,
+      "ant_ms": 198.6757000000216,
+      "maze_sha256": "9eede1b40f0c263e62310dddf99d39c7493648a4721bd2956395613390dcf68d"
+    },
+    {
+      "size": 10,
+      "seed": 502003,
+      "shortest_steps": 24,
+      "ant_steps": 24,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 39910,
+      "bfs_ms": 3.582900000270456,
+      "ant_ms": 79.78040000004694,
+      "maze_sha256": "48e3c225ac4998d8589256fd8b56cbeffefff00bc4b4e8badd8697fd880442d0"
+    },
+    {
+      "size": 10,
+      "seed": 502004,
+      "shortest_steps": 22,
+      "ant_steps": 22,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 29364,
+      "bfs_ms": 0.02259999979287386,
+      "ant_ms": 42.44290000014007,
+      "maze_sha256": "0cfc29c0ce49f6a9663baa698b4f3bc4c9d136e173b1e8bd5e604f83c1f60a4c"
+    },
+    {
+      "size": 10,
+      "seed": 502005,
+      "shortest_steps": 18,
+      "ant_steps": 18,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 30696,
+      "bfs_ms": 0.02969999983906746,
+      "ant_ms": 67.72039999999106,
+      "maze_sha256": "3124f76d1276f25d28c564a37744f04b31db06d3b45209c4cdc9e4546c460111"
+    },
+    {
+      "size": 10,
+      "seed": 502006,
+      "shortest_steps": 20,
+      "ant_steps": 20,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 30268,
+      "bfs_ms": 0.04570000013336539,
+      "ant_ms": 33.35490000015125,
+      "maze_sha256": "c1e3e7373ff4eb8a179523ea8fe542aa49cce88ff77c801e437a967ae6c5244e"
+    },
+    {
+      "size": 10,
+      "seed": 502007,
+      "shortest_steps": 20,
+      "ant_steps": 20,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 26660,
+      "bfs_ms": 0.025799999944865704,
+      "ant_ms": 28.09030000027269,
+      "maze_sha256": "ac3ced65156515d1b73d03ffdf535e14be2770cb7af2bed37132c5b0d7db8531"
+    },
+    {
+      "size": 10,
+      "seed": 502008,
+      "shortest_steps": 22,
+      "ant_steps": 22,
+      "extra_pct": 0,
+      "reached_of_1000": 997,
+      "walk_steps": 54384,
+      "bfs_ms": 0.03470000019297004,
+      "ant_ms": 63.780199999921024,
+      "maze_sha256": "57906a65914d5f9d7ed2767cd2dc0f024534fa69f791fd7bb1f3261f864f36e3"
+    },
+    {
+      "size": 10,
+      "seed": 502009,
+      "shortest_steps": 28,
+      "ant_steps": 28,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 52602,
+      "bfs_ms": 0.054899999871850014,
+      "ant_ms": 77.0468000001274,
+      "maze_sha256": "b8067e8dcd886a7a9d1f262ec81ca78125fa4fbd40b9fde644caeb823a43f904"
+    },
+    {
+      "size": 15,
+      "seed": 502500,
+      "shortest_steps": 38,
+      "ant_steps": 38,
+      "extra_pct": 0,
+      "reached_of_1000": 995,
+      "walk_steps": 95015,
+      "bfs_ms": 0.10019999975338578,
+      "ant_ms": 119.65150000015274,
+      "maze_sha256": "d93fc8e303190a548a5aabbad1cb2e31e9d7d96fe4d8a04487735b6b0782fc4d"
+    },
+    {
+      "size": 15,
+      "seed": 502501,
+      "shortest_steps": 32,
+      "ant_steps": 32,
+      "extra_pct": 0,
+      "reached_of_1000": 997,
+      "walk_steps": 76123,
+      "bfs_ms": 0.10779999988153577,
+      "ant_ms": 91.56270000012591,
+      "maze_sha256": "2a9e9ddf2062d08051979c90168365bd5a5cd6a7165ac551f249325fdeabe637"
+    },
+    {
+      "size": 15,
+      "seed": 502502,
+      "shortest_steps": 30,
+      "ant_steps": 30,
+      "extra_pct": 0,
+      "reached_of_1000": 997,
+      "walk_steps": 85175,
+      "bfs_ms": 0.08609999995678663,
+      "ant_ms": 134.29919999977574,
+      "maze_sha256": "9285de455528c458703e38251cb5a829e27ba0516e3c1c7776a9a98620f23d72"
+    },
+    {
+      "size": 15,
+      "seed": 502503,
+      "shortest_steps": 48,
+      "ant_steps": 50,
+      "extra_pct": 4.166666666666666,
+      "reached_of_1000": 997,
+      "walk_steps": 79379,
+      "bfs_ms": 0.06100000021979213,
+      "ant_ms": 112.22830000007525,
+      "maze_sha256": "67b4840610fda692ad7fd6fb8ff4a8b6d5b5e41af9bca243ed466c410f2431c9"
+    },
+    {
+      "size": 15,
+      "seed": 502504,
+      "shortest_steps": 38,
+      "ant_steps": 38,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 82994,
+      "bfs_ms": 0.0953999999910593,
+      "ant_ms": 118.46570000005886,
+      "maze_sha256": "5d10a1cf8966f13d750b30243bac080f272938d563f6a4f5ec67f1cc354cb885"
+    },
+    {
+      "size": 15,
+      "seed": 502505,
+      "shortest_steps": 44,
+      "ant_steps": 44,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 105712,
+      "bfs_ms": 0.05679999990388751,
+      "ant_ms": 186.97870000032708,
+      "maze_sha256": "fb0ce417744dcd8ae699dd94773af577bfb210a9eae2b01b98ffe973a60178cf"
+    },
+    {
+      "size": 15,
+      "seed": 502506,
+      "shortest_steps": 32,
+      "ant_steps": 32,
+      "extra_pct": 0,
+      "reached_of_1000": 994,
+      "walk_steps": 85456,
+      "bfs_ms": 0.1444000001065433,
+      "ant_ms": 170.91379999974743,
+      "maze_sha256": "2ecbeef2721ddad1e192eb58f0cac192946ed0f20ef83115c3b1988a2bdf6a82"
+    },
+    {
+      "size": 15,
+      "seed": 502507,
+      "shortest_steps": 42,
+      "ant_steps": 42,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 94320,
+      "bfs_ms": 0.03760000038892031,
+      "ant_ms": 126.16830000001937,
+      "maze_sha256": "8a9073fab19c6825c4ac9f28ba0111ea723e40cd96b35741188b46e69396f23e"
+    },
+    {
+      "size": 15,
+      "seed": 502508,
+      "shortest_steps": 48,
+      "ant_steps": 48,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 87592,
+      "bfs_ms": 0.05450000008568168,
+      "ant_ms": 96.42590000014752,
+      "maze_sha256": "91d0721a609dbd7419fb2730fd3e49fc520c9dff62807cb6015885fe3f81f8c5"
+    },
+    {
+      "size": 15,
+      "seed": 502509,
+      "shortest_steps": 32,
+      "ant_steps": 32,
+      "extra_pct": 0,
+      "reached_of_1000": 999,
+      "walk_steps": 51619,
+      "bfs_ms": 0.19500000029802322,
+      "ant_ms": 63.651899999938905,
+      "maze_sha256": "2bc7b5f6360fe68ed98c9008ddc23a8b5f882e76365ee1c8043c4f0dd64ede2e"
+    },
+    {
+      "size": 20,
+      "seed": 503000,
+      "shortest_steps": 46,
+      "ant_steps": 46,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 124382,
+      "bfs_ms": 0.21670000022277236,
+      "ant_ms": 166.6027999999933,
+      "maze_sha256": "8c9833e509537be30ec4f20032c9786967cc18163689571c59aaac88787a9e12"
+    },
+    {
+      "size": 20,
+      "seed": 503001,
+      "shortest_steps": 56,
+      "ant_steps": 56,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 144470,
+      "bfs_ms": 0.15570000000298023,
+      "ant_ms": 178.74780000001192,
+      "maze_sha256": "d98c3cea7c3f2227051604c8601cd51e0902ade84abf1221dfa62abd09cb3913"
+    },
+    {
+      "size": 20,
+      "seed": 503002,
+      "shortest_steps": 66,
+      "ant_steps": 66,
+      "extra_pct": 0,
+      "reached_of_1000": 999,
+      "walk_steps": 146554,
+      "bfs_ms": 0.15539999958127737,
+      "ant_ms": 179.46950000012293,
+      "maze_sha256": "d6ea2f71843e7ed16ab8f697deb29caac68868fecd41df0bfd02125387585190"
+    },
+    {
+      "size": 20,
+      "seed": 503003,
+      "shortest_steps": 46,
+      "ant_steps": 46,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 172756,
+      "bfs_ms": 0.03969999961555004,
+      "ant_ms": 193.62039999989793,
+      "maze_sha256": "d206ba8be544bb3a1c337227544550014f9a5f2435c0cbcf5debb4a34d8a3a88"
+    },
+    {
+      "size": 20,
+      "seed": 503004,
+      "shortest_steps": 88,
+      "ant_steps": 90,
+      "extra_pct": 2.272727272727273,
+      "reached_of_1000": 962,
+      "walk_steps": 358612,
+      "bfs_ms": 0.05869999993592501,
+      "ant_ms": 580.3693000003695,
+      "maze_sha256": "89d750d5c2eab6d7eb21df4b996a680b986f7ae338e3502724bb507b812e0782"
+    },
+    {
+      "size": 20,
+      "seed": 503005,
+      "shortest_steps": 44,
+      "ant_steps": 44,
+      "extra_pct": 0,
+      "reached_of_1000": 1000,
+      "walk_steps": 139014,
+      "bfs_ms": 0.16369999991729856,
+      "ant_ms": 173.65540000004694,
+      "maze_sha256": "b6c8b670e1e3265bee1c374acd1706178f6d700f220eb94ac09582d2551a0b3f"
+    },
+    {
+      "size": 20,
+      "seed": 503006,
+      "shortest_steps": 48,
+      "ant_steps": 48,
+      "extra_pct": 0,
+      "reached_of_1000": 993,
+      "walk_steps": 143984,
+      "bfs_ms": 0.09620000002905726,
+      "ant_ms": 175.35399999981746,
+      "maze_sha256": "215b653bc30281a334c577a930922b0e592642fb2be47fad902c0b450219098f"
+    },
+    {
+      "size": 20,
+      "seed": 503007,
+      "shortest_steps": 48,
+      "ant_steps": 48,
+      "extra_pct": 0,
+      "reached_of_1000": 994,
+      "walk_steps": 152688,
+      "bfs_ms": 0.07310000015422702,
+      "ant_ms": 211.21929999999702,
+      "maze_sha256": "162df7a9c7a98fe4ba991261ffcfd29b7fe75202aa8cc1b705210bef6ac1a821"
+    },
+    {
+      "size": 20,
+      "seed": 503008,
+      "shortest_steps": 56,
+      "ant_steps": 56,
+      "extra_pct": 0,
+      "reached_of_1000": 997,
+      "walk_steps": 167150,
+      "bfs_ms": 0.24539999989792705,
+      "ant_ms": 222.45650000032037,
+      "maze_sha256": "c8bd0b75c4346c0a25cfe5f23760be1f59872c10e76396dac735e96fff8d54f5"
+    },
+    {
+      "size": 20,
+      "seed": 503009,
+      "shortest_steps": 54,
+      "ant_steps": 54,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 165136,
+      "bfs_ms": 0.9320999998599291,
+      "ant_ms": 448.4492999999784,
+      "maze_sha256": "1454d6508af1d07652770b3b28179d12ff1956c4c3b1bfa3ce15bcb62a5e1546"
+    },
+    {
+      "size": 28,
+      "seed": 503800,
+      "shortest_steps": 74,
+      "ant_steps": 74,
+      "extra_pct": 0,
+      "reached_of_1000": 993,
+      "walk_steps": 376124,
+      "bfs_ms": 0.1603000001050532,
+      "ant_ms": 459.214999999851,
+      "maze_sha256": "cb31f9f6d78ef3d161ca6e97dd8a121028ad51e3f3155e591fc347372bc1d460"
+    },
+    {
+      "size": 28,
+      "seed": 503801,
+      "shortest_steps": 66,
+      "ant_steps": 66,
+      "extra_pct": 0,
+      "reached_of_1000": 997,
+      "walk_steps": 256004,
+      "bfs_ms": 0.2900000000372529,
+      "ant_ms": 333.4989999998361,
+      "maze_sha256": "04374fc0b812b4949b7f5115ef9b31ea921b5933adb84560d40adcdc10ca0e5e"
+    },
+    {
+      "size": 28,
+      "seed": 503802,
+      "shortest_steps": 84,
+      "ant_steps": 84,
+      "extra_pct": 0,
+      "reached_of_1000": 992,
+      "walk_steps": 285582,
+      "bfs_ms": 0.09219999983906746,
+      "ant_ms": 414.5120000001043,
+      "maze_sha256": "ef7de0553efa3f21213cffe1c80d6baa2de494cbf8dbd90ff9de80d104be2b97"
+    },
+    {
+      "size": 28,
+      "seed": 503803,
+      "shortest_steps": 68,
+      "ant_steps": 68,
+      "extra_pct": 0,
+      "reached_of_1000": 994,
+      "walk_steps": 351982,
+      "bfs_ms": 0.30120000010356307,
+      "ant_ms": 483.70039999997243,
+      "maze_sha256": "6817155666070db66808aa86813cbb6410525b4611d07f1ecfedc9a37cab4048"
+    },
+    {
+      "size": 28,
+      "seed": 503804,
+      "shortest_steps": 88,
+      "ant_steps": 88,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 191088,
+      "bfs_ms": 0.19989999989047647,
+      "ant_ms": 225.25019999966025,
+      "maze_sha256": "c322732689255f039b7ffcb08d274b90542625709aa5b363c0ba464161a796f7"
+    },
+    {
+      "size": 28,
+      "seed": 503805,
+      "shortest_steps": 78,
+      "ant_steps": 78,
+      "extra_pct": 0,
+      "reached_of_1000": 998,
+      "walk_steps": 351978,
+      "bfs_ms": 0.24229999957606196,
+      "ant_ms": 441.8506000000052,
+      "maze_sha256": "d2b9ccf007f9f83fc3a4e0e9e0fc93fccbbac077dab1f7aadf6cf23a3359b829"
+    },
+    {
+      "size": 28,
+      "seed": 503806,
+      "shortest_steps": 82,
+      "ant_steps": 84,
+      "extra_pct": 2.4390243902439024,
+      "reached_of_1000": 992,
+      "walk_steps": 378476,
+      "bfs_ms": 0.3651000000536442,
+      "ant_ms": 541.6036000000313,
+      "maze_sha256": "e0fb1a347a5d94735d44d1b1fee7dcc95959745e593fc8a12f373e5db71a7cc5"
+    },
+    {
+      "size": 28,
+      "seed": 503807,
+      "shortest_steps": 82,
+      "ant_steps": 86,
+      "extra_pct": 4.878048780487805,
+      "reached_of_1000": 995,
+      "walk_steps": 280778,
+      "bfs_ms": 0.15940000023692846,
+      "ant_ms": 338.99170000012964,
+      "maze_sha256": "3bc62cc0031ec1041d40380f8dbade247cd81faf882080ca55bb61ef3cac821c"
+    },
+    {
+      "size": 28,
+      "seed": 503808,
+      "shortest_steps": 80,
+      "ant_steps": 80,
+      "extra_pct": 0,
+      "reached_of_1000": 994,
+      "walk_steps": 440284,
+      "bfs_ms": 0.2031000000424683,
+      "ant_ms": 583.4729999997653,
+      "maze_sha256": "f9bf4c6b3ecd1d36b6df7fe36f8637ca1214496dd544c385465a609a3b2c3599"
+    },
+    {
+      "size": 28,
+      "seed": 503809,
+      "shortest_steps": 88,
+      "ant_steps": 92,
+      "extra_pct": 4.545454545454546,
+      "reached_of_1000": 996,
+      "walk_steps": 455620,
+      "bfs_ms": 0.22269999980926514,
+      "ant_ms": 663.0559999998659,
+      "maze_sha256": "38ee36646b3d93b8fdf1fba1340bf178d8cc2850de427b3a0bb992b7d4e305ca"
+    }
+  ],
+  "tactics": [
+    {
+      "name": "white_rook_mate",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "selected_move": "Ra8#",
+      "passed": true
+    },
+    {
+      "name": "black_rook_mate",
+      "fen": "r5k1/5ppp/8/8/8/8/5PPP/6K1 b - - 0 1",
+      "selected_move": "Ra1#",
+      "passed": true
+    },
+    {
+      "name": "queen_mate",
+      "fen": "7k/8/5KQ1/8/8/8/8/8 w - - 0 1",
+      "selected_move": "Qg7#",
+      "passed": true
+    },
+    {
+      "name": "stalemate",
+      "fen": "7k/5K2/6Q1/8/8/8/8/8 b - - 0 1",
+      "selected_move": null,
+      "passed": true
+    }
+  ],
+  "selected_parameters": {
+    "a": 1,
+    "b": 3,
+    "rho": 0.08,
+    "D": 4,
+    "T": 3
+  },
+  "summary": {
+    "trained_validation_points": 12,
+    "validation_games": 24,
+    "trained_points_per_game": 0.5,
+    "paired_bootstrap_95": [
+      0.5,
+      0.5
+    ],
+    "validation_termination_counts": {
+      "checkmate": 2,
+      "rules_draw": 0,
+      "material_adjudication": 22
+    },
+    "tactics_passed": 4,
+    "maze_by_size": [
+      {
+        "size": 10,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0,
+        "optimal": 10,
+        "mean_goal_rate_pct": 99.92,
+        "mean_ant_ms": 90.59896000004373,
+        "mean_bfs_ms": 0.44319000001996756
+      },
+      {
+        "size": 15,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0.41666666666666663,
+        "optimal": 9,
+        "mean_goal_rate_pct": 99.74999999999999,
+        "mean_ant_ms": 122.03460000003687,
+        "mean_bfs_ms": 0.09388000005856156
+      },
+      {
+        "size": 20,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0.2272727272727273,
+        "optimal": 9,
+        "mean_goal_rate_pct": 99.39,
+        "mean_ant_ms": 252.9944300000556,
+        "mean_bfs_ms": 0.2136699999216944
+      },
+      {
+        "size": 28,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 1.1862527716186253,
+        "optimal": 7,
+        "mean_goal_rate_pct": 99.49000000000001,
+        "mean_ant_ms": 448.51514999992213,
+        "mean_bfs_ms": 0.22361999996937812
+      }
+    ]
+  }
+}

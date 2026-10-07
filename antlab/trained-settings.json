@@ -1,0 +1,68 @@
+{
+  "parameters": {
+    "a": 1,
+    "b": 3,
+    "rho": 0.08,
+    "D": 4,
+    "T": 3
+  },
+  "training_seed": 20261007,
+  "summary": {
+    "trained_validation_points": 12,
+    "validation_games": 24,
+    "trained_points_per_game": 0.5,
+    "paired_bootstrap_95": [
+      0.5,
+      0.5
+    ],
+    "validation_termination_counts": {
+      "checkmate": 2,
+      "rules_draw": 0,
+      "material_adjudication": 22
+    },
+    "tactics_passed": 4,
+    "maze_by_size": [
+      {
+        "size": 10,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0,
+        "optimal": 10,
+        "mean_goal_rate_pct": 99.92,
+        "mean_ant_ms": 90.59896000004373,
+        "mean_bfs_ms": 0.44319000001996756
+      },
+      {
+        "size": 15,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0.41666666666666663,
+        "optimal": 9,
+        "mean_goal_rate_pct": 99.74999999999999,
+        "mean_ant_ms": 122.03460000003687,
+        "mean_bfs_ms": 0.09388000005856156
+      },
+      {
+        "size": 20,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 0.2272727272727273,
+        "optimal": 9,
+        "mean_goal_rate_pct": 99.39,
+        "mean_ant_ms": 252.9944300000556,
+        "mean_bfs_ms": 0.2136699999216944
+      },
+      {
+        "size": 28,
+        "mazes": 10,
+        "solved": 10,
+        "mean_extra_pct_solved": 1.1862527716186253,
+        "optimal": 7,
+        "mean_goal_rate_pct": 99.49000000000001,
+        "mean_ant_ms": 448.51514999992213,
+        "mean_bfs_ms": 0.22361999996937812
+      }
+    ]
+  },
+  "claim": "Frozen candidate; held-out evidence is in results.json. No strength or improvement claim is certified."
+}

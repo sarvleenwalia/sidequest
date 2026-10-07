@@ -1,0 +1,101 @@
+{
+  "passed": 19,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Maze generation reproduces the same seed",
+      "passed": true,
+      "elapsed_ms": 10
+    },
+    {
+      "name": "Different seeds produce different maze layouts",
+      "passed": true,
+      "elapsed_ms": 2
+    },
+    {
+      "name": "BFS route is connected and legal at every size",
+      "passed": true,
+      "elapsed_ms": 9
+    },
+    {
+      "name": "Loop erasure preserves a simple connected path",
+      "passed": true,
+      "elapsed_ms": 0
+    },
+    {
+      "name": "Pheromones stay positive and finite",
+      "passed": true,
+      "elapsed_ms": 10
+    },
+    {
+      "name": "Ant paths do not cross walls or beat exact BFS",
+      "passed": true,
+      "elapsed_ms": 47
+    },
+    {
+      "name": "Search returns a legal move without mutating the input game",
+      "passed": true,
+      "elapsed_ms": 236
+    },
+    {
+      "name": "Chess search reproduces a fixed seed",
+      "passed": true,
+      "elapsed_ms": 294
+    },
+    {
+      "name": "White mate-in-one is detected",
+      "passed": true,
+      "elapsed_ms": 7
+    },
+    {
+      "name": "Black mate-in-one is detected",
+      "passed": true,
+      "elapsed_ms": 6
+    },
+    {
+      "name": "Stalemate is neutral and no move is returned",
+      "passed": true,
+      "elapsed_ms": 1
+    },
+    {
+      "name": "Insufficient-material draw is neutral",
+      "passed": true,
+      "elapsed_ms": 0
+    },
+    {
+      "name": "Mutations are bounded across 1,000 samples",
+      "passed": true,
+      "elapsed_ms": 3
+    },
+    {
+      "name": "Corrupt persisted settings are rejected",
+      "passed": true,
+      "elapsed_ms": 0
+    },
+    {
+      "name": "Stop is polled without a progress callback",
+      "passed": true,
+      "elapsed_ms": 117
+    },
+    {
+      "name": "Stopped game returns no outcome",
+      "passed": true,
+      "elapsed_ms": 1
+    },
+    {
+      "name": "Chess rules library accepts a legal castling move",
+      "passed": true,
+      "elapsed_ms": 8
+    },
+    {
+      "name": "Chess rules library enforces en passant",
+      "passed": true,
+      "elapsed_ms": 3
+    },
+    {
+      "name": "Chess rules library supports queen promotion",
+      "passed": true,
+      "elapsed_ms": 1
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "surface": "Codex in-app browser, local HTTP preview",
+  "passed": [
+    "maze BFS and ant run",
+    "three-maze comparison table",
+    "CSV clipboard copy",
+    "chess tab and hash restoration after reload",
+    "manual e2-e4 and undo controls",
+    "mate puzzle solved by root pre-check",
+    "training start and conflicting controls locked",
+    "training cancellation restores controls and saves no new candidate",
+    "frozen candidate loading",
+    "automatic black reply returns turn to white"
+  ],
+  "not_exhaustively_verified": [
+    "all browser/device combinations",
+    "clipboard-denied fallback",
+    "storage-denied fallback",
+    "chess stop button timing under UI automation (dispatch deadline; engine stop polling tested)",
+    "full interactive training/validation loop (final training and validation were executed offline using the shared engine)"
+  ]
+}
